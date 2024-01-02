@@ -46,9 +46,9 @@ const Home = () => {
 				</Slider>
 			</section>
 
-			<section className='mt-24'>
+			<section className='mt-16 lg:mt-24'>
 				<div className='flex items-center justify-between'>
-					<h1 className='text-3xl font-bold text-gray-900'>Latest Products</h1>
+					<h1 className='text-2xl lg:text-3xl font-bold text-gray-900'>Latest Products</h1>
 
 					<Link to='/search'>More</Link>
 				</div>

@@ -46,7 +46,7 @@ const Header = () => {
 						<div
 							className={`${
 								isOpen ? 'flex' : 'hidden'
-							} absolute right-[30%] flex-col items-start rounded-lg shadow-lg border-2 p-2 bg-gradient-to-bl from-gray-100`}
+							} z-[99] absolute right-[30%] flex-col items-start rounded-lg shadow-lg border-2 p-2 bg-gray-50 lg:bg-gradient-to-bl lg:from-gray-100`}
 						>
 							<div className='w-40 px-2 pt-1 pb-2 rounded-md hover:bg-gray-100'>
 								{user.role === 'admin' && <Link to='/admin/dashboard'>Admin</Link>}
