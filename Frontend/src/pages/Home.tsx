@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import TopProduct from '../components/TopProduct';
 import url1 from '../assets/Web capture_31-12-2023_13526_zone-ui.vercel.app.jpeg';
 import url2 from '../assets/Web capture_31-12-2023_13611_zone-ui.vercel.app.jpeg';
 import url3 from '../assets/Web capture_31-12-2023_13649_zone-ui.vercel.app.jpeg';
@@ -19,7 +20,7 @@ const Home = () => {
 			<div
 				style={{
 					borderRadius: '10px',
-					paddingBottom: '50px',
+					paddingBottom: '30px',
 				}}
 			>
 				<ul style={{ margin: '0px' }}> {dots} </ul>
@@ -53,7 +54,12 @@ const Home = () => {
 					<Link to='/search'>More</Link>
 				</div>
 
-				<main className='grid grid-cols-2 gap-8 mt-16 lg:gap-6 lg:grid-cols-4 '></main>
+				<main className='grid grid-cols-2 gap-8 mt-16 lg:gap-6 lg:grid-cols-4 '>
+        <TopProduct/>
+          <TopProduct/>
+          <TopProduct/>
+          <TopProduct/>
+        </main>
 			</section>
 		</div>
 	);

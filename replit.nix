@@ -1,5 +1,6 @@
 { pkgs }: {
     deps = [
+      pkgs.gir-rs
         pkgs.yarn
         pkgs.esbuild
         pkgs.nodejs-18_x
