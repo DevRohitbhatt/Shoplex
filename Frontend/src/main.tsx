@@ -5,13 +5,14 @@ import './index.css';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { Suspense } from 'react';
 import { Search, Home, Cart } from './pages/index.tsx';
+import Loader from './components/Loader.tsx';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route
 			path='/'
 			element={
-				<Suspense>
+				<Suspense fallback={<Loader />}>
 					<App />
 				</Suspense>
 			}
