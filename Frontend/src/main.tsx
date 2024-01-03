@@ -4,7 +4,7 @@ import App from './App.tsx';
 import './index.css';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { Suspense } from 'react';
-import { Search, Home, Cart } from './pages/index.tsx';
+import { Shop, Home, Cart } from './pages/index.tsx';
 import Loader from './components/Loader.tsx';
 
 const router = createBrowserRouter(
@@ -18,7 +18,7 @@ const router = createBrowserRouter(
 			}
 		>
 			<Route index element={<Home />} />
-			<Route path='search' element={<Search />} />
+			<Route path='shop' element={<Shop />} />
 			<Route path='cart' element={<Cart />} />
 		</Route>
 	)

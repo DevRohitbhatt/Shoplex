@@ -49,17 +49,17 @@ const Home = () => {
 
 			<section className='mt-16 lg:mt-24'>
 				<div className='flex items-center justify-between'>
-					<h1 className='text-2xl lg:text-3xl font-bold text-gray-900'>Latest Products</h1>
+					<h1 className='text-2xl font-bold text-gray-900 lg:text-3xl'>Latest Products</h1>
 
-					<Link to='/search'>More</Link>
+					<Link to='/shop'>More</Link>
 				</div>
 
 				<main className='grid grid-cols-2 gap-8 mt-16 lg:gap-6 lg:grid-cols-4 '>
-        <TopProduct/>
-          <TopProduct/>
-          <TopProduct/>
-          <TopProduct/>
-        </main>
+					<TopProduct />
+					<TopProduct />
+					<TopProduct />
+					<TopProduct />
+				</main>
 			</section>
 		</div>
 	);
