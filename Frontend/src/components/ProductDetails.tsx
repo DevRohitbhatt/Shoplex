@@ -1,12 +1,13 @@
 import { AiFillStar, AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
+import { FaCartPlus } from 'react-icons/fa6';
 import url from '../assets/product_2.png';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const ProductDetails = () => {
 	const [quantity, setQuantity] = useState<number>(1);
 
 	return (
-		<div>
+		<main>
 			<div className='flex flex-col mt-10 lg:space-x-16 lg:flex-row'>
 				<img className='bg-gray-100 lg:w-1/2 rounded-2xl' src={url} alt='' />
 
@@ -49,9 +50,18 @@ const ProductDetails = () => {
 							<span className='mt-2 text-xs font-medium text-gray-600'>Available: 72</span>
 						</div>
 					</div>
+					<div className='flex space-x-4'>
+						<button className='w-full bg-[#ffab00] py-3 justify-center items-center space-x-3 font-medium flex rounded-lg mt-8 hover:bg-[#b76e00]'>
+							<FaCartPlus size={22} />
+							<span>Add to Cart</span>
+						</button>
+						<button className='w-full bg-black text-white py-3 justify-center items-center space-x-3 font-medium flex rounded-lg mt-8 hover:bg-[#454f5b]'>
+							Buy Now
+						</button>
+					</div>
 				</div>
 			</div>
-		</div>
+		</main>
 	);
 };
 
