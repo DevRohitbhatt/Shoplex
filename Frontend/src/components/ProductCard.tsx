@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { FaCartPlus } from 'react-icons/fa6';
 
 type ProductPorps = {
 	productId: string;
@@ -15,11 +15,20 @@ const server = 'ddfdsga';
 
 const ProductCard = ({ productId, name, price, image, stock, handler }: ProductPorps) => {
 	return (
-		<Link to={`/product/${productId}`} className='hover:bg-gray-100 flex flex-col p-4 border-[1px] rounded-2xl'>
-			<img className='bg-gray-100 rounded-2xl' src={`${server} / ${image}`} alt='name' />
-			<h1 className='mt-4 font-medium'>{name}</h1>
-			<span className='mt-1 font-medium'>₹{price}</span>
-		</Link>
+		<div className='flex flex-col p-2 pb-6 shadow-lg border-[1px] rounded-2xl group'>
+			<div className='relative'>
+				<img
+					className='bg-gray-100 rounded-2xl'
+					src={`https://api-prod-minimal-v510.vercel.app/assets/images/m_product/product_6.jpg`}
+					alt='name'
+				/>
+				<div className='hidden absolute bottom-0 right-0 p-4 m-2 rounded-full bg-[#ffab00] group-hover:block hover:bg-[#b76e00]'>
+					<FaCartPlus size={20} />
+				</div>
+			</div>
+			<h1 className='pl-4 mt-4 font-medium'>Nike Jorden</h1>
+			<span className='pl-4 mt-2 font-medium'>₹20,000</span>
+		</div>
 	);
 };
 export default ProductCard;
