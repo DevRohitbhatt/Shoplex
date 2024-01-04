@@ -54,7 +54,7 @@ const Home = () => {
 					<Link to='/shop'>More</Link>
 				</div>
 
-				<main className='grid grid-cols-2 gap-8 mt-16 lg:gap-6 lg:grid-cols-4 '>
+				<main className='grid grid-cols-2 gap-8 mt-10 lg:mt-16 lg:gap-6 lg:grid-cols-4 '>
 					<TopProduct />
 					<TopProduct />
 					<TopProduct />

@@ -6,6 +6,8 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import { Suspense } from 'react';
 import { Shop, Home, Cart } from './pages/index.tsx';
 import Loader from './components/Loader.tsx';
+import ProductDetails from './components/ProductDetails.tsx';
+import Login from './pages/Login.tsx';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -19,7 +21,9 @@ const router = createBrowserRouter(
 		>
 			<Route index element={<Home />} />
 			<Route path='shop' element={<Shop />} />
+			<Route path='shop/product' element={<ProductDetails />} />
 			<Route path='cart' element={<Cart />} />
+			<Route path='login' element={<Login />} />
 		</Route>
 	)
 );

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AiOutlineHome, AiOutlineShopping, AiOutlineLogin, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai';
 import { useState, useEffect, useRef } from 'react';
 
-const user = { _id: 'ddsfs', role: 'admin' };
+const user = { _id: '', role: 'user' };
 
 const Header = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);

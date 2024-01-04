@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { FaCartPlus } from 'react-icons/fa6';
 
 type ProductPorps = {
@@ -22,11 +23,13 @@ const ProductCard = ({ productId, name, price, image, stock, handler }: ProductP
 					src={`https://api-prod-minimal-v510.vercel.app/assets/images/m_product/product_6.jpg`}
 					alt='name'
 				/>
-				<div className='hidden absolute bottom-0 right-0 p-4 m-2 rounded-full bg-[#ffab00] group-hover:block hover:bg-[#b76e00]'>
+				<div className='hidden absolute bottom-0 right-0 p-4 m-2 rounded-full bg-[#ffab00] group-hover:block hover:bg-[#b76e00] cursor-pointer'>
 					<FaCartPlus size={20} />
 				</div>
 			</div>
-			<h1 className='pl-4 mt-4 font-medium'>Nike Jorden</h1>
+			<Link to='/shop/product'>
+				<h1 className='pl-4 mt-4 font-medium hover:underline'>Nike Jorden</h1>
+			</Link>
 			<span className='pl-4 mt-2 font-medium'>₹20,000</span>
 		</div>
 	);
