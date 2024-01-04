@@ -7,11 +7,15 @@ function App() {
 
 	return (
 		<>
-			<div className={`container ${location.pathname !== '/login' ? 'max-w-6xl ' : ''} px-4 m-auto mt-4`}>
-				{location.pathname !== '/login' ? <Header /> : null}
+			<div
+				className={`container ${
+					location.pathname !== '/login' && location.pathname !== '/register' ? 'max-w-6xl ' : ''
+				} px-4 m-auto mt-4`}
+			>
+				{location.pathname !== '/login' && location.pathname !== '/register' ? <Header /> : null}
 				<Outlet />
 			</div>
-			{location.pathname !== '/login' ? <Footer /> : null}
+			{location.pathname !== '/login' && location.pathname !== '/register' ? <Footer /> : null}
 		</>
 	);
 }
