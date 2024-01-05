@@ -6,7 +6,7 @@ const Register = () => {
 		<div className='flex mt-10 md:space-x-5 lg:space-x-16'>
 			<img className='hidden md:w-1/2 lg:w-3/5 md:block' src={url} alt='shopping' />
 			<div className='w-full p-10 mt-20 shadow-2xl md:w-1/2 lg:w-2/5 h-fit rounded-2xl'>
-				<h1 className='text-2xl font-bold text-gray-900 lg:text-3xl'>Login</h1>
+				<h1 className='text-2xl font-bold text-gray-900 lg:text-3xl'>Get Started</h1>
 				<h4 className='mt-6 text-gray-600 '>
 					Don`t have an account?{' '}
 					<Link to='/login' className='text-[#00a76f] font-medium cursor-pointer hover:underline'>
@@ -78,7 +78,7 @@ const Register = () => {
 					</div>
 				</form>
 				<button className='mt-6 w-full py-3 font-medium text-white bg-[#212b36] hover:bg-[#454f5b] rounded-lg'>
-					Login
+					Register
 				</button>
 				<p className='mt-5 text-center text-gray-600'>I agree to Terms of Service and Privacy Policy.</p>
 			</div>

@@ -6,7 +6,7 @@ function App() {
 	const location = useLocation();
 
 	return (
-		<>
+		<div className='font'>
 			<div
 				className={`container ${
 					location.pathname !== '/login' && location.pathname !== '/register' ? 'max-w-6xl ' : ''
@@ -16,7 +16,7 @@ function App() {
 				<Outlet />
 			</div>
 			{location.pathname !== '/login' && location.pathname !== '/register' ? <Footer /> : null}
-		</>
+		</div>
 	);
 }
 

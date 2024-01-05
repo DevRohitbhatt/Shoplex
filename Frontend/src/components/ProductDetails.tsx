@@ -33,19 +33,21 @@ const ProductDetails = () => {
 						<span className='font-medium'>Quantity</span>
 						<div className='flex flex-col items-end'>
 							<div className='flex p-1 space-x-2 border-2 rounded-lg'>
-								<button
-									onClick={() => setQuantity((prev) => (prev > 1 ? prev - 1 : 1))}
-									className='px-1 rounded-md active:bg-gray-200'
-								>
-									<AiOutlineMinus />
-								</button>
-								<span>{quantity}</span>
-								<button
-									onClick={() => setQuantity((prev) => prev + 1)}
-									className='px-1 rounded-md active:bg-gray-200'
-								>
-									<AiOutlinePlus />
-								</button>
+								<div className='flex p-1.5 justify-between w-[88px] border-2 rounded-lg h-fit'>
+									<button
+										onClick={() => setQuantity((prev) => (prev > 1 ? prev - 1 : 1))}
+										className='px-1 rounded-md active:bg-gray-200'
+									>
+										<AiOutlineMinus />
+									</button>
+									<span className='text-center '>{quantity}</span>
+									<button
+										onClick={() => setQuantity((prev) => prev + 1)}
+										className='px-1 rounded-md active:bg-gray-200'
+									>
+										<AiOutlinePlus />
+									</button>
+								</div>
 							</div>
 							<span className='mt-2 text-xs font-medium text-gray-600'>Available: 72</span>
 						</div>

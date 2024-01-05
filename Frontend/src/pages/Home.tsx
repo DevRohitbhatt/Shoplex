@@ -7,6 +7,7 @@ import url1 from '../assets/Web capture_31-12-2023_13526_zone-ui.vercel.app.jpeg
 import url2 from '../assets/Web capture_31-12-2023_13611_zone-ui.vercel.app.jpeg';
 import url3 from '../assets/Web capture_31-12-2023_13649_zone-ui.vercel.app.jpeg';
 import url4 from '../assets/Web capture_31-12-2023_13754_zone-ui.vercel.app.jpeg';
+import productUrl from '../assets/product_5.png';
 
 const Home = () => {
 	const settings = {
@@ -55,10 +56,10 @@ const Home = () => {
 				</div>
 
 				<main className='grid grid-cols-2 gap-8 mt-10 lg:mt-16 lg:gap-6 lg:grid-cols-4 '>
-					<TopProduct />
-					<TopProduct />
-					<TopProduct />
-					<TopProduct />
+					<TopProduct productId='qwewrsd' name='Apple Iphone' price={400000} stock={435} image={productUrl} />
+					<TopProduct productId='qwewrsd' name='Apple Iphone' price={400000} stock={435} image={productUrl} />
+					<TopProduct productId='qwewrsd' name='Apple Iphone' price={400000} stock={435} image={productUrl} />
+					<TopProduct productId='qwewrsd' name='Apple Iphone' price={400000} stock={435} image={productUrl} />
 				</main>
 			</section>
 		</div>
