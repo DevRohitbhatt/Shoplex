@@ -6,7 +6,7 @@ const CartItem = () => {
 
 	return (
 		<div className='relative flex items-center justify-between py-5'>
-			<div className='sm:space-x-3 sm:flex sm:items-center'>
+			<div className='space-y-1 sm:space-y-0 sm:space-x-3 sm:flex sm:items-center'>
 				<img
 					className='w-20 rounded-xl'
 					src='https://api-prod-minimal-v510.vercel.app/assets/images/m_product/product_6.jpg'
