@@ -15,7 +15,7 @@ const CartItem = () => {
 				<h2 className='text-sm font-semibold text-[#212b36] tracking-wide'>Zoom Freak 2</h2>
 			</div>
 
-			<div className='flex items-center space-x-8 sm:space-x-14'>
+			<div className='flex items-center space-x-6 sm:space-x-14'>
 				<div className='flex p-1.5 justify-between w-[88px] border-2 rounded-lg h-fit'>
 					<button
 						onClick={() => setQuantity((prev) => (prev > 1 ? prev - 1 : 1))}
