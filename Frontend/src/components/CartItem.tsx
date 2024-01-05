@@ -5,8 +5,8 @@ const CartItem = () => {
 	const [quantity, setQuantity] = useState<number>(1);
 
 	return (
-		<div className='relative justify-between py-5 sm:flex'>
-			<div className='flex space-x-3 sm:items-center'>
+		<div className='relative flex items-center justify-between py-5'>
+			<div className='sm:space-x-3 sm:flex sm:items-center'>
 				<img
 					className='w-20 rounded-xl'
 					src='https://api-prod-minimal-v510.vercel.app/assets/images/m_product/product_6.jpg'
@@ -15,7 +15,7 @@ const CartItem = () => {
 				<h2 className='text-sm font-semibold text-[#212b36] tracking-wide'>Zoom Freak 2</h2>
 			</div>
 
-			<div className='absolute right-0 flex items-center sm:static bottom-8 space-x-14'>
+			<div className='flex items-center space-x-8 sm:space-x-14'>
 				<div className='flex p-1.5 justify-between w-[88px] border-2 rounded-lg h-fit'>
 					<button
 						onClick={() => setQuantity((prev) => (prev > 1 ? prev - 1 : 1))}
