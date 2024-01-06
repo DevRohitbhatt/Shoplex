@@ -20,7 +20,6 @@ const Register = () => {
 							className='w-full px-3 pb-2 text-sm bg-gray-100 rounded-lg outline-none appearance-none pt-7 peer placeholder:text-transparent '
 							id='name'
 							type='text'
-							autoFocus
 							placeholder='you@email.com'
 						/>
 						<label
@@ -35,7 +34,6 @@ const Register = () => {
 							className='w-full px-3 pb-2 text-sm bg-gray-100 rounded-lg outline-none appearance-none pt-7 peer placeholder:text-transparent '
 							id='email'
 							type='text'
-							autoFocus
 							placeholder='you@email.com'
 						/>
 						<label
@@ -51,7 +49,6 @@ const Register = () => {
 							className='w-full px-3 pb-2 bg-gray-100 rounded-lg outline-none appearance-none pt-7 peer placeholder:text-transparent '
 							id='password'
 							type='text'
-							autoFocus
 							placeholder='************'
 						/>
 						<label
@@ -66,7 +63,6 @@ const Register = () => {
 							className='w-full px-3 pb-2 bg-gray-100 rounded-lg outline-none appearance-none pt-7 peer placeholder:text-transparent '
 							id='confirmPassword'
 							type='text'
-							autoFocus
 							placeholder='************'
 						/>
 						<label
