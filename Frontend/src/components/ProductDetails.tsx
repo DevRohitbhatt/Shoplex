@@ -8,7 +8,7 @@ const ProductDetails = () => {
 
 	return (
 		<main>
-			<div className='flex flex-col mt-6 md:mt-10 lg:space-x-16 lg:flex-row'>
+			<div className='flex flex-col mt-8 md:mt-10 lg:space-x-16 lg:flex-row'>
 				<img className='bg-gray-100 lg:w-1/2 rounded-2xl' src={url} alt='' />
 
 				<div className='mt-10 lg:w-1/2 lg:mt-0'>
