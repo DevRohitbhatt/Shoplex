@@ -28,9 +28,11 @@ const ProductCard = ({ productId, name, price, image, stock, handler }: ProductP
 				</div>
 			</div>
 			<Link to='/shop/product'>
-				<h1 className='pl-4 mt-4 font-medium hover:underline'>Nike Jorden</h1>
+				<h1 className='pl-4 mt-4 font-semibold text-[#212B36] text-sm hover:underline tracking-wide'>
+					Nike Jorden
+				</h1>
 			</Link>
-			<span className='pl-4 mt-2 font-medium'>₹20,000</span>
+			<span className='pl-4 mt-2 font-semibold text-[#212B36] tracking-wide'>₹20,000</span>
 		</div>
 	);
 };

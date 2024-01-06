@@ -33,10 +33,9 @@ const Login = () => {
 
 					<div className='relative'>
 						<input
-							className='w-full px-3 pb-2 bg-gray-100 rounded-lg outline-none appearance-none pt-7 peer placeholder:text-transparent '
+							className='w-full px-3 pb-2 bg-gray-100 rounded-lg outline-none appearance-none pt-7 peer placeholder:text-transparent'
 							id='password'
 							type='text'
-							autoFocus
 							placeholder='************'
 						/>
 						<label
