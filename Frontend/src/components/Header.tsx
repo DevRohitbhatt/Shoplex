@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { AiOutlineHome, AiOutlineShopping, AiOutlineLogin, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai';
+import { AiOutlineShopping, AiOutlineLogin, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai';
 import { useState, useEffect, useRef } from 'react';
+import logo from '../assets/logo.png';
 
 const user = { _id: '', role: 'user' };
 
@@ -23,8 +24,8 @@ const Header = () => {
 
 	return (
 		<header className='flex items-center justify-between'>
-			<Link to='/' onClick={() => setIsOpen(false)}>
-				<AiOutlineHome size={26} />
+			<Link to='/'>
+				<img className=' w-36' src={logo} alt='' />
 			</Link>
 
 			<nav className='flex space-x-2'>

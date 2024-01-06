@@ -3,7 +3,7 @@ import url from '../assets/Wavy_Bus-17_Single-09.jpg';
 
 const Login = () => {
 	return (
-		<div className='flex mt-10 md:space-x-5 lg:space-x-16'>
+		<div className='flex md:space-x-5 lg:space-x-16'>
 			<img className='hidden md:w-1/2 lg:w-3/5 md:block' src={url} alt='shopping' />
 			<div className='w-full p-10 mt-20 shadow-2xl md:w-1/2 lg:w-2/5 h-fit rounded-2xl'>
 				<h1 className='text-2xl font-bold text-gray-900 lg:text-3xl'>Login</h1>
