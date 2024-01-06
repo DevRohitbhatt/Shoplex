@@ -29,7 +29,7 @@ const ProductDetails = () => {
 						accusantium doloribus eaque debitis.
 					</p>
 
-					<div className='flex items-center justify-between pt-6 mt-8 border-t-2'>
+					<div className='flex justify-between pt-6 mt-8 border-t-2'>
 						<span className='font-medium'>Quantity</span>
 						<div className='flex flex-col items-end'>
 							<div className='flex p-1.5 justify-between w-[88px] border-2 rounded-lg h-fit'>
