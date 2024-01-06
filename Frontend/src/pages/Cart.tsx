@@ -2,11 +2,11 @@ import CartItem from '../components/CartItem';
 
 const Cart = () => {
 	return (
-		<div className='mt-10'>
+		<div className='mt-4 md:mt-10'>
 			<h1 className='text-2xl font-bold text-gray-900 lg:text-3xl'>Shopping Cart</h1>
 
-			<div className='flex flex-col mt-10 lg:flex-row lg:space-x-6'>
-				<main className='lg:w-2/3 divide-y-[1px] rounded-xl'>
+			<div className='flex flex-col mt-4 md:mt-10 lg:flex-row lg:space-x-6'>
+				<main className='lg:w-2/3 divide-y-[1px]'>
 					<CartItem />
 					<CartItem />
 					<CartItem />
@@ -42,7 +42,7 @@ const Cart = () => {
 						<input
 							className='py-4 pl-3 rounded-lg outline-none placeholder:text-black'
 							type='text'
-							placeholder='DISCOUNT5'
+							placeholder='DISCOUNT'
 						/>
 						<button className='text-[#00a76f] font-medium hover:bg-[#ebf8f4] rounded-lg px-3 py-2 absolute right-2 top-2'>
 							Apply
