@@ -12,8 +12,8 @@ const server = 'ddfdsga';
 
 const TopProduct = ({ productId, name, price, image, stock, handler }: ProductPorps) => {
 	return (
-		<Link to='/shop/product' className='hover:bg-gray-100 flex flex-col p-4 border-[1px] rounded-2xl'>
-			<img className='bg-gray-100 rounded-2xl' src={image} alt='' />
+		<Link to='/shop/product' className='hover:bg-[#f4f6f8] flex flex-col p-4 border-[1px] rounded-2xl'>
+			<img className='bg-[#f4f6f8] rounded-2xl' src={image} alt='' />
 			<h1 className='mt-4 font-semibold text-sm text-[#212B36]'>{name}</h1>
 			<span className='mt-1 font-semibold text-[#212B36] text-sm tracking-wide'>₹{price}</span>
 		</Link>
