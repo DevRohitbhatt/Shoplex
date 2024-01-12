@@ -1,38 +1,40 @@
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { useState } from 'react';
 
-const CartItem = () => {
-	const [quantity, setQuantity] = useState<number>(1);
+type CartItemProps = {
+	// eslint-disable-next-line
+	cartItem: any;
+};
+
+const CartItem = ({ cartItem }: CartItemProps) => {
+	const { name, image, price, quantity } = cartItem;
+	const [productQuantity, setProductQuantity] = useState<number>(quantity);
 
 	return (
 		<div className='relative flex items-center justify-between py-5'>
 			<div className='space-y-1 sm:space-y-0 sm:space-x-3 sm:flex sm:items-center'>
-				<img
-					className='w-20 rounded-xl'
-					src='https://api-prod-minimal-v510.vercel.app/assets/images/m_product/product_6.jpg'
-					alt=''
-				/>
-				<h2 className='text-sm font-semibold text-[#212b36] tracking-wide'>Zoom Freak 2</h2>
+				<img className='w-20 rounded-xl' src={image} alt={name} />
+				<h2 className='text-sm font-semibold text-[#212b36] tracking-wide'>{name}</h2>
 			</div>
 
 			<div className='flex items-center space-x-6 sm:space-x-14'>
 				<div className='flex p-1.5 justify-between w-[88px] border-2 rounded-lg h-fit'>
 					<button
-						onClick={() => setQuantity((prev) => (prev > 1 ? prev - 1 : 1))}
+						onClick={() => setProductQuantity((prev) => (prev > 1 ? prev - 1 : 1))}
 						className='px-1 rounded-md active:bg-gray-200'
 					>
 						<AiOutlineMinus />
 					</button>
-					<span className='text-center '>{quantity}</span>
+					<p className='text-center '>{productQuantity}</p>
 					<button
-						onClick={() => setQuantity((prev) => prev + 1)}
+						onClick={() => setProductQuantity((prev) => prev + 1)}
 						className='px-1 rounded-md active:bg-gray-200'
 					>
 						<AiOutlinePlus />
 					</button>
 				</div>
 
-				<span className='font-medium text-[#212b36]'>$25.55</span>
+				<span className='font-medium text-[#212b36]'>₹{price}</span>
 
 				<div className='p-2 rounded-full hover:bg-gray-100'>
 					<svg

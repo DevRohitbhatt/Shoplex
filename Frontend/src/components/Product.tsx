@@ -1,5 +1,4 @@
 import ProductCard from './ProductCard';
-import ProductDetails from './ProductDetails';
 
 const Product = () => {
 	return (

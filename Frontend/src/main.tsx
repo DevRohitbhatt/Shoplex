@@ -4,11 +4,8 @@ import App from './App.tsx';
 import './index.css';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { Suspense } from 'react';
-import { Shop, Home, Cart } from './pages/index.tsx';
+import { Login, Register, Home, Shop, ProductDetails, Cart, Checkout, Payment } from './pages/index.tsx';
 import Loader from './components/Loader.tsx';
-import ProductDetails from './components/ProductDetails.tsx';
-import Login from './pages/Login.tsx';
-import Register from './pages/Register.tsx';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -20,12 +17,14 @@ const router = createBrowserRouter(
 				</Suspense>
 			}
 		>
+			<Route path='login' element={<Login />} />
+			<Route path='register' element={<Register />} />
 			<Route index element={<Home />} />
 			<Route path='shop' element={<Shop />} />
 			<Route path='shop/product' element={<ProductDetails />} />
 			<Route path='cart' element={<Cart />} />
-			<Route path='login' element={<Login />} />
-			<Route path='register' element={<Register />} />
+			<Route path='checkout' element={<Checkout />} />
+			<Route path='payment' element={<Payment />} />
 		</Route>
 	)
 );

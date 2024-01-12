@@ -39,7 +39,7 @@ const ProductDetails = () => {
 								>
 									<AiOutlineMinus />
 								</button>
-								<span className='text-center '>{quantity}</span>
+								<p className='text-center '>{quantity}</p>
 								<button
 									onClick={() => setQuantity((prev) => prev + 1)}
 									className='px-1 rounded-md active:bg-gray-200'
