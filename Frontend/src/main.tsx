@@ -4,11 +4,12 @@ import App from './App.tsx';
 import './index.css';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { Suspense } from 'react';
-import { Login, Register, Home, Shop, ProductDetails, Cart, Checkout, Payment } from './pages/index.tsx';
+import { Login, Register, Home, Shop, ProductDetails, Cart, Checkout, Payment, Dashboard } from './pages/index.tsx';
 import Loader from './components/Loader.tsx';
+import AdminRoute from './pages/admin/AdminRoute.tsx';
 
 const router = createBrowserRouter(
-	createRoutesFromElements(
+	createRoutesFromElements([
 		<Route
 			path='/'
 			element={
@@ -25,8 +26,14 @@ const router = createBrowserRouter(
 			<Route path='cart' element={<Cart />} />
 			<Route path='checkout' element={<Checkout />} />
 			<Route path='payment' element={<Payment />} />
-		</Route>
-	)
+		</Route>,
+		<Route path='/admin' element={<AdminRoute />}>
+			<Route index path='dashboard' element={<Dashboard />} />
+			<Route path='user' element={<Dashboard />} />
+			<Route path='product' element={<Dashboard />} />
+			<Route path='order' element={<Dashboard />} />
+		</Route>,
+	])
 );
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

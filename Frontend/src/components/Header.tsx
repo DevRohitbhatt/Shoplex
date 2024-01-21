@@ -3,7 +3,7 @@ import { AiOutlineShopping, AiOutlineLogin, AiOutlineUser, AiOutlineShoppingCart
 import { useState, useEffect, useRef } from 'react';
 import logo from '../assets/logo.png';
 
-const user = { _id: '', role: 'user' };
+const user = { _id: 'zzgdg', role: 'admin' };
 
 const Header = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
