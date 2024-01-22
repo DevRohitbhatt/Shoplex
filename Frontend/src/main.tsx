@@ -27,7 +27,14 @@ const router = createBrowserRouter(
 			<Route path='checkout' element={<Checkout />} />
 			<Route path='payment' element={<Payment />} />
 		</Route>,
-		<Route path='/admin' element={<AdminRoute />}>
+		<Route
+			path='/admin'
+			element={
+				<Suspense fallback={<Loader />}>
+					<AdminRoute />
+				</Suspense>
+			}
+		>
 			<Route index path='dashboard' element={<Dashboard />} />
 			<Route path='user' element={<Dashboard />} />
 			<Route path='product' element={<Dashboard />} />
