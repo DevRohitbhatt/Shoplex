@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Input from '../components/Input';
 import Stepper from '../components/Stepper';
@@ -9,6 +10,16 @@ const discount = 400;
 const total = subTotal + tax + shippingCharges - discount;
 
 const Checkout = () => {
+	const [shippingInfo, setShippingInfo] = useState({
+		address: '',
+		city: '',
+		state: '',
+		country: '',
+		zipCode: '',
+	});
+
+	const changeHandler = () => {};
+
 	return (
 		<div className='mt-4 md:mt-10'>
 			<h1 className='text-2xl font-bold text-gray-900 lg:text-3xl'>Checkout</h1>
@@ -19,7 +30,14 @@ const Checkout = () => {
 				<main className='lg:w-2/3'>
 					<h3 className='font-semibold text-lg tracking-wide text-[#212b36]'>Shipping Details</h3>
 					<div className='grid grid-cols-2 gap-5 mt-6'>
-						<Input title='Address' type='text' id='address' placeholder='Address' />
+						<Input
+							title='Address'
+							type='text'
+							id='address'
+							placeholder='Address'
+							value={shippingInfo.address}
+							onChange={changeHandler}
+						/>
 						<Input title='City' type='text' id='city' placeholder='City' />
 						<Input title='State' type='text' id='state' placeholder='State' />
 						<Input title='Zip Code' type='text' id='zipCode' placeholder='Zip Code' />

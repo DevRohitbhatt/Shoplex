@@ -12,11 +12,7 @@ const Stepper = ({ step }: { step: number }) => {
 							<span
 								className={`flex items-center justify-center flex-shrink-0 font-medium rounded-full w-7 h-7 ${
 									currentStep === i + 1 ? 'bg-blue-600 text-white' : 'text-gray-800 bg-gray-100'
-								} ${
-									i + 1 < currentStep
-										? 'bg-[#00a76f] group-focus:bg-[#00a76f]'
-										: 'group-focus:bg-gray-200'
-								}`}
+								} ${i + 1 < currentStep ? '!bg-emerald-500' : ''}`}
 							>
 								<span>{i + 1 < currentStep ? null : i + 1}</span>
 								<svg
@@ -37,8 +33,8 @@ const Stepper = ({ step }: { step: number }) => {
 								</svg>
 							</span>
 							<div
-								className={`flex-1 w-full h-px mx-4 bg-gray-200 group-last:hidden ${
-									i + 1 < currentStep ? 'bg-[#00a76f]' : ''
+								className={`flex-1 w-full h-px mx-4  group-last:hidden ${
+									i + 1 < currentStep ? 'bg-emerald-500' : 'bg-gray-200'
 								}`}
 							></div>
 						</span>
