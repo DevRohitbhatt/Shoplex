@@ -25,7 +25,7 @@ const Header = () => {
 	return (
 		<header className='flex items-center justify-between'>
 			<Link to='/'>
-				<img className=' w-36' src={logo} alt='' />
+				<img className='w-36' src={logo} alt='' />
 			</Link>
 
 			<nav className='flex space-x-2'>
@@ -49,9 +49,11 @@ const Header = () => {
 								isOpen ? 'flex' : 'hidden'
 							} z-[99] absolute right-[30%] flex-col items-start rounded-lg shadow-lg border-2 p-2 bg-gray-50 lg:bg-gradient-to-bl lg:from-gray-100`}
 						>
-							<div className='w-40 px-2 pt-1 pb-2 rounded-md hover:bg-gray-100'>
-								{user.role === 'admin' && <Link to='/admin/dashboard'>Admin</Link>}
-							</div>
+							{user.role === 'admin' && (
+								<Link to='/admin/dashboard'>
+									<div className='w-40 px-2 pt-1 pb-2 rounded-md hover:bg-gray-100'>Admin</div>
+								</Link>
+							)}
 
 							<Link to='/orders' className='w-40 px-2 pt-1 pb-2 rounded-md hover:bg-gray-100'>
 								Orders

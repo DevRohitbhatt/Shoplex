@@ -7,7 +7,7 @@ import { IconType } from 'react-icons';
 const AdminSidebar = () => {
 	return (
 		<div className='flex items-center bg-white'>
-			<div className='lg:block h-screen px-4 py-6 border-r-[1px] w-80'>
+			<div className='lg:block h-screen px-4 py-6 border-r-[1px] w-72'>
 				<Link to='/'>
 					<img className='ml-3 w-36' src={logo} alt='logo' />
 				</Link>
