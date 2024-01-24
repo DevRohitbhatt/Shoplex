@@ -1,11 +1,15 @@
 const Dashboard = () => {
 	return (
 		<div className='mt-6 lg:px-6'>
-			<div className='flex flex-col justify-between gap-6 md:flex-row'>
-				<WidgetItem title='Product Sold' value='765' profit={true} percent='10.6' />
-				<WidgetItem title='Total Balance' value='18765' percent='5.2' />
-				<WidgetItem title='Sales Profit' value='4875' profit={true} percent='15.8' />
-			</div>
+			<section className='flex flex-col justify-between gap-6 md:flex-row'>
+				<WidgetItem title='Product Sold' value={765} profit={true} percent={10.6} />
+				<WidgetItem title='Total Balance' value={18765} profit={false} percent={5.2} />
+				<WidgetItem title='Sales Profit' value={4875} profit={true} percent={15.8} />
+			</section>
+
+			<section>
+				<h3>Sale By Gender</h3>
+			</section>
 		</div>
 	);
 };
@@ -34,7 +38,6 @@ const WidgetItem = ({ title, value, profit, percent }: WidgetItemProps) => {
 							xmlnsXlink='http://www.w3.org/1999/xlink'
 							aria-hidden='true'
 							role='img'
-							className=''
 							width='1em'
 							height='1em'
 							viewBox='0 0 24 24'
@@ -50,7 +53,6 @@ const WidgetItem = ({ title, value, profit, percent }: WidgetItemProps) => {
 							xmlnsXlink='http://www.w3.org/1999/xlink'
 							aria-hidden='true'
 							role='img'
-							class=''
 							width='1em'
 							height='1em'
 							viewBox='0 0 24 24'
