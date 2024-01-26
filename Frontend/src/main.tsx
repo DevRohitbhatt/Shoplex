@@ -7,6 +7,9 @@ import { Suspense } from 'react';
 import { Login, Register, Home, Shop, ProductDetails, Cart, Checkout, Payment, Dashboard } from './pages/index.tsx';
 import Loader from './components/Loader.tsx';
 import AdminRoute from './pages/admin/AdminRoute.tsx';
+import Users from './pages/admin/Users.tsx';
+import Products from './pages/admin/Products.tsx';
+import Orders from './pages/admin/Orders.tsx';
 
 const router = createBrowserRouter(
 	createRoutesFromElements([
@@ -36,9 +39,9 @@ const router = createBrowserRouter(
 			}
 		>
 			<Route index path='dashboard' element={<Dashboard />} />
-			<Route path='user' element={<Dashboard />} />
-			<Route path='product' element={<Dashboard />} />
-			<Route path='order' element={<Dashboard />} />
+			<Route path='user' element={<Users />} />
+			<Route path='product' element={<Products />} />
+			<Route path='order' element={<Orders />} />
 		</Route>,
 	])
 );

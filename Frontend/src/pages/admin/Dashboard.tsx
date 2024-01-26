@@ -1,3 +1,5 @@
+import RadialBarChart, { LineChart } from '../../components/admin/Charts';
+
 const Dashboard = () => {
 	return (
 		<div className='mt-6 lg:px-6'>
@@ -7,8 +9,16 @@ const Dashboard = () => {
 				<WidgetItem title='Sales Profit' value={4875} profit={true} percent={15.8} />
 			</section>
 
-			<section>
-				<h3>Sale By Gender</h3>
+			<section className='flex flex-col justify-between gap-6 mt-7 md:flex-row'>
+				{/* Gender Graph */}
+				<div className='py-6 border-[1px] shadow-lg rounded-2xl w-full md:w-1/2'>
+					<h3 className='px-6 mb-4 text-lg font-bold'>Sale By Gender</h3>
+					<RadialBarChart labels={['Male', 'Female']} series={[44, 75]} colors={['#00A76F', '#FFAB00']} />
+				</div>
+				{/* Income vs Expense graph */}
+				<div className='p-6 border-[1px] shadow-lg rounded-2xl w-full '>
+					<LineChart />
+				</div>
 			</section>
 		</div>
 	);
@@ -23,7 +33,7 @@ interface WidgetItemProps {
 
 const WidgetItem = ({ title, value, profit, percent }: WidgetItemProps) => {
 	return (
-		<div className='rounded-xl border-[1px] shadow-lg p-6'>
+		<div className='rounded-2xl border-[1px] shadow-lg p-6'>
 			<h3 className='text-sm font-semibold tracking-wide text-gray-700'>{title}</h3>
 			<span className='block mt-5 text-3xl font-bold'>{value}</span>
 			<div className='flex mt-5 space-x-1'>
