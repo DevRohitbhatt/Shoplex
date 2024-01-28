@@ -2,12 +2,12 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import TopProduct from '../components/TopProduct';
-import url1 from '../assets/Web capture_31-12-2023_13526_zone-ui.vercel.app.jpeg';
-import url2 from '../assets/Web capture_31-12-2023_13611_zone-ui.vercel.app.jpeg';
-import url3 from '../assets/Web capture_31-12-2023_13649_zone-ui.vercel.app.jpeg';
-import url4 from '../assets/Web capture_31-12-2023_13754_zone-ui.vercel.app.jpeg';
-import productUrl from '../assets/product_5.png';
+import TopProduct from './TopProduct';
+import url1 from '../../assets/Web capture_31-12-2023_13526_zone-ui.vercel.app.jpeg';
+import url2 from '../../assets/Web capture_31-12-2023_13611_zone-ui.vercel.app.jpeg';
+import url3 from '../../assets/Web capture_31-12-2023_13649_zone-ui.vercel.app.jpeg';
+import url4 from '../../assets/Web capture_31-12-2023_13754_zone-ui.vercel.app.jpeg';
+import productUrl from '../../assets/product_5.png';
 
 const Home = () => {
 	const settings = {

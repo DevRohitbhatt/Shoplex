@@ -1,4 +1,4 @@
-import Stepper from '../components/Stepper';
+import Stepper from '../../components/Stepper';
 import { Link } from 'react-router-dom';
 
 const subTotal = 4000;

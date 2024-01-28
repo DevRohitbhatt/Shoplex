@@ -1,6 +1,6 @@
 import { AiFillStar, AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { FaCartPlus } from 'react-icons/fa6';
-import url from '../assets/product_2.png';
+import url from '../../assets/product_2.png';
 import { useState } from 'react';
 
 const ProductDetails = () => {

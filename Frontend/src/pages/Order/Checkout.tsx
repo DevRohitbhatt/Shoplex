@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Input from '../components/Input';
-import Stepper from '../components/Stepper';
+import Input from '../../components/Input';
+import Stepper from '../../components/Stepper';
 
 const subTotal = 4000;
 const tax = Math.round(subTotal * 0.18);
