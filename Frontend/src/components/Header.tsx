@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { AiOutlineShopping, AiOutlineLogin, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai';
+import { Link, NavLink } from 'react-router-dom';
+import { AiOutlineHome, AiOutlineShopping, AiOutlineLogin, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai';
 import { useState, useEffect, useRef } from 'react';
 import logo from '../assets/logo.png';
 
@@ -29,12 +29,36 @@ const Header = () => {
 			</Link>
 
 			<nav className='flex space-x-2'>
-				<Link to='/shop' className='p-2 hover:bg-gray-50 hover:rounded-full'>
+				<NavLink
+					to='/'
+					className={({ isActive }) =>
+						`flex items-center space-x-3 text-sm font-semibold tracking-wide p-2 hover:rounded-full hover:bg-gray-100 ${
+							isActive ? 'text-[#00a76f]' : ''
+						}`
+					}
+				>
+					<AiOutlineHome size={26} />
+				</NavLink>
+				<NavLink
+					to='/shop'
+					className={({ isActive }) =>
+						`flex items-center space-x-3 text-sm font-semibold tracking-wide p-2 hover:rounded-full hover:bg-gray-100 ${
+							isActive ? 'text-[#00a76f]' : ''
+						}`
+					}
+				>
 					<AiOutlineShopping size={26} />
-				</Link>
-				<Link to='/cart' className='p-2 hover:bg-gray-50 hover:rounded-full'>
+				</NavLink>
+				<NavLink
+					to='/cart'
+					className={({ isActive }) =>
+						`flex items-center space-x-3 text-sm font-semibold tracking-wide p-2 hover:rounded-full hover:bg-gray-100 ${
+							isActive ? 'text-[#00a76f]' : ''
+						}`
+					}
+				>
 					<AiOutlineShoppingCart size={26} />
-				</Link>
+				</NavLink>
 
 				{user._id ? (
 					<div className='relative' ref={btnRef}>

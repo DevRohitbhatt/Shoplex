@@ -24,13 +24,14 @@ const AdminRoute = () => {
 		<div className='relative flex'>
 			<div
 				ref={btnRef}
-				className={`absolute transform duration-300 ease-in-out lg:static ${
+				className={`absolute transform z-50 duration-300 ease-in-out lg:static ${
 					sidebarIsOpen ? '' : '-translate-x-full lg:translate-x-0'
 				}`}
 			>
 				<AdminSidebar />
 			</div>
-			<div className='w-full p-4'>
+			<div className='relative w-full h-screen px-4 pt-4'>
+				{sidebarIsOpen ? <div className='absolute top-0 bottom-0 left-0 right-0 z-40 bg-black/75'></div> : null}
 				<div className='flex items-center justify-between w-full lg:justify-end lg:px-6'>
 					<div
 						className={`${
@@ -70,6 +71,7 @@ const AdminRoute = () => {
 						/>
 					</div>
 				</div>
+
 				<Outlet />
 			</div>
 		</div>
