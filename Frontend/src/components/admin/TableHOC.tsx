@@ -31,7 +31,7 @@ const TableHOC = <T extends object>(columns: ColumnDef<T>[], data: T[]) => {
 
 	return (
 		<div className='rounded-2xl border-[1px] shadow-md'>
-			<div className='overflow-y-auto h-96'>
+			<div className='overflow-y-auto h-fit max-h-96'>
 				<table className='w-full'>
 					<thead className='sticky top-0 w-full bg-gray-50 '>
 						{table.getHeaderGroups().map((headerGroup) => (
@@ -61,7 +61,7 @@ const TableHOC = <T extends object>(columns: ColumnDef<T>[], data: T[]) => {
 					</thead>
 					<tbody>
 						{table.getRowModel().rows.map((row) => (
-							<tr key={row.id} className='border-b'>
+							<tr key={row.id} className='border-b hover:bg-gray-50'>
 								{row.getVisibleCells().map((cell) => (
 									<td key={cell.id} className='px-4 py-4 font-medium'>
 										{flexRender(cell.column.columnDef.cell, cell.getContext())}
