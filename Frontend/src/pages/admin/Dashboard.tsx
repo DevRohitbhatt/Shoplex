@@ -2,7 +2,7 @@ import RadialBarChart, { LineChart } from '../../components/admin/Charts';
 
 const Dashboard = () => {
 	return (
-		<div className=' absolute top-2 bottom-0 left-0 right-0 overflow-y-auto'>
+		<div className=' absolute top-2 bottom-0 left-0 right-0  overflow-y-auto'>
 			<section className='flex flex-col justify-between gap-6 md:flex-row'>
 				<WidgetItem title='Product Sold' value={765} profit={true} percent={10.6} />
 				<WidgetItem title='Total Balance' value={18765} profit={false} percent={5.2} />

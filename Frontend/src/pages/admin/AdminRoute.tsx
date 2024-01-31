@@ -73,7 +73,7 @@ const AdminRoute = () => {
 						</div>
 					</div>
 
-					<div className='w-full relative h-screen lg:px-6'>
+					<div className='w- relative h-screen lg:mx-6'>
 						<Outlet />
 					</div>
 				</div>
