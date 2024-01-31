@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
-import { AiOutlineHome, AiOutlineShopping, AiOutlineLogin, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai';
+import { AiOutlineShopping, AiOutlineLogin, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai';
 import { useState, useEffect, useRef } from 'react';
 import logo from '../assets/logo.png';
 
@@ -29,16 +29,6 @@ const Header = () => {
 			</Link>
 
 			<nav className='flex space-x-2'>
-				<NavLink
-					to='/'
-					className={({ isActive }) =>
-						`flex items-center space-x-3 text-sm font-semibold tracking-wide p-2 hover:rounded-full hover:bg-gray-100 ${
-							isActive ? 'text-[#00a76f]' : ''
-						}`
-					}
-				>
-					<AiOutlineHome size={26} />
-				</NavLink>
 				<NavLink
 					to='/shop'
 					className={({ isActive }) =>

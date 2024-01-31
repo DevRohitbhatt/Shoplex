@@ -7,7 +7,6 @@ import {
 	flexRender,
 	getSortedRowModel,
 	SortingState,
-	getFilteredRowModel,
 	getPaginationRowModel,
 } from '@tanstack/react-table';
 import { useState } from 'react';
@@ -24,7 +23,6 @@ const TableHOC = <T extends object>(columns: ColumnDef<T>[], data: T[]) => {
 		onSortingChange: setSorting,
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
 		debugTable: true,
 	});
@@ -98,14 +96,14 @@ const TableHOC = <T extends object>(columns: ColumnDef<T>[], data: T[]) => {
 				</div>
 				<div className='flex gap-2 text-2xl'>
 					<button
-						className='p-2 rounded-full cursor-pointer hover:bg-gray-100'
+						className='p-2 rounded-full enabled:cursor-pointer disabled:text-gray-400 disabled: hover:enabled:bg-gray-100'
 						onClick={() => table.previousPage()}
 						disabled={!table.getCanPreviousPage()}
 					>
 						<MdKeyboardArrowLeft />
 					</button>
 					<button
-						className='p-2 rounded-full cursor-pointer hover:bg-gray-100'
+						className='p-2 rounded-full enabled:cursor-pointer disabled:text-gray-400 disabled: hover:enabled:bg-gray-100'
 						onClick={() => table.nextPage()}
 						disabled={!table.getCanNextPage()}
 					>
