@@ -111,8 +111,8 @@ const Orders = () => {
 
 	const Table = TableHOC<DataType>(columns, rows);
 	return (
-		<div className='mt-6 lg:px-6'>
-			<div className='flex justify-between my-10'>
+		<div>
+			<div className='flex justify-between my-8'>
 				<h1 className='text-2xl font-bold'>List</h1>
 			</div>
 			{Table}

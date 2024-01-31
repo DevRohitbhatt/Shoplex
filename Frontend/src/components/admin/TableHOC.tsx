@@ -31,7 +31,7 @@ const TableHOC = <T extends object>(columns: ColumnDef<T>[], data: T[]) => {
 		<div className='rounded-2xl border-[1px] shadow-md'>
 			<div className='overflow-y-auto h-fit max-h-96'>
 				<table className='w-full'>
-					<thead className='sticky top-0 w-full bg-gray-50 '>
+					<thead className='sticky top-0 w-full bg-gray-100 '>
 						{table.getHeaderGroups().map((headerGroup) => (
 							<tr key={headerGroup.id}>
 								{headerGroup.headers.map((header) => (
@@ -59,7 +59,7 @@ const TableHOC = <T extends object>(columns: ColumnDef<T>[], data: T[]) => {
 					</thead>
 					<tbody>
 						{table.getRowModel().rows.map((row) => (
-							<tr key={row.id} className='border-b hover:bg-gray-50'>
+							<tr key={row.id} className='border-b hover:bg-gray-100'>
 								{row.getVisibleCells().map((cell) => (
 									<td key={cell.id} className='px-4 py-4 font-medium'>
 										{flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -2,13 +2,24 @@ import RadialBarChart, { LineChart } from '../../components/admin/Charts';
 
 const Dashboard = () => {
 	return (
-		<div className='mt-6 lg:px-6'>
+		<div className=' absolute top-2 bottom-0 left-0 right-0 overflow-y-auto'>
 			<section className='flex flex-col justify-between gap-6 md:flex-row'>
 				<WidgetItem title='Product Sold' value={765} profit={true} percent={10.6} />
 				<WidgetItem title='Total Balance' value={18765} profit={false} percent={5.2} />
 				<WidgetItem title='Sales Profit' value={4875} profit={true} percent={15.8} />
 			</section>
 
+			<section className='flex flex-col justify-between gap-6 mt-7 md:flex-row'>
+				{/* Gender Graph */}
+				<div className='py-6 border-[1px] shadow-lg rounded-2xl w-full md:w-1/2'>
+					<h3 className='px-6 mb-4 text-lg font-bold'>Sale By Gender</h3>
+					<RadialBarChart labels={['Male', 'Female']} series={[44, 75]} colors={['#00A76F', '#FFAB00']} />
+				</div>
+				{/* Income vs Expense graph */}
+				<div className='p-6 border-[1px] shadow-lg rounded-2xl w-full '>
+					<LineChart />
+				</div>
+			</section>
 			<section className='flex flex-col justify-between gap-6 mt-7 md:flex-row'>
 				{/* Gender Graph */}
 				<div className='py-6 border-[1px] shadow-lg rounded-2xl w-full md:w-1/2'>

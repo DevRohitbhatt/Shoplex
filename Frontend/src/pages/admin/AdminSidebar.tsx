@@ -6,19 +6,17 @@ import { IconType } from 'react-icons';
 
 const AdminSidebar = () => {
 	return (
-		<div className='flex items-center bg-white'>
-			<div className='lg:block h-screen px-4 py-6 border-r-[1px] w-72'>
-				<Link to='/'>
-					<img className='ml-3 w-36' src={logo} alt='logo' />
-				</Link>
+		<div className='h-screen px-4 py-6 border-r-[1px] bg-white w-72'>
+			<Link to='/'>
+				<img className='ml-3 w-36' src={logo} alt='logo' />
+			</Link>
 
-				<div className='flex flex-col mt-4 space-y-2'>
-					<h1 className='ml-4 my-3 uppercase text-[#637381] text-xs font-bold'>Dashboard</h1>
-					<Li url='/admin/dashboard' text='Dashboard' Icon={RiDashboardFill} />
-					<Li url='/admin/user' text='User' Icon={HiUserCircle} />
-					<Li url='/admin/product' text='Product' Icon={HiShoppingBag} />
-					<Li url='/admin/order' text='Order' Icon={HiShoppingCart} />
-				</div>
+			<div className='flex flex-col mt-4 space-y-2'>
+				<h1 className='ml-4 my-3 uppercase text-[#637381] text-xs font-bold'>Dashboard</h1>
+				<Li url='/admin/dashboard' text='Dashboard' Icon={RiDashboardFill} />
+				<Li url='/admin/user' text='User' Icon={HiUserCircle} />
+				<Li url='/admin/product' text='Product' Icon={HiShoppingBag} />
+				<Li url='/admin/order' text='Order' Icon={HiShoppingCart} />
 			</div>
 		</div>
 	);

@@ -99,8 +99,8 @@ const Users = () => {
 	const Table = TableHOC<DataType>(columns, rows);
 
 	return (
-		<div className='mt-6 lg:px-6'>
-			<div className='flex justify-between my-10'>
+		<div>
+			<div className='flex justify-between my-8'>
 				<h1 className='text-2xl font-bold'>List</h1>
 				<button className='w-fit flex space-x-2 py-1.5 pl-1.5 pr-3 items-center font-bold text-sm text-white bg-[#212b36] hover:bg-[#454f5b] rounded-lg'>
 					<GoPlus size={24} className='mr-2' />
