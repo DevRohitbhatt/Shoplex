@@ -21,6 +21,7 @@ import {
 	PageNotFound,
 } from './pages/index.tsx';
 import Loader from './components/Loader.tsx';
+import UserOrders from './pages/User/UserOrders.tsx';
 
 const router = createBrowserRouter(
 	createRoutesFromElements([
@@ -40,6 +41,7 @@ const router = createBrowserRouter(
 			<Route path='cart' element={<Cart />} />
 			<Route path='checkout' element={<Checkout />} />
 			<Route path='payment' element={<Payment />} />
+			<Route path='orders' element={<UserOrders />} />
 			<Route path='*' element={<PageNotFound />} />
 		</Route>,
 		<Route
