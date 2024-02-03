@@ -36,7 +36,7 @@ const Cart = () => {
 
 	return (
 		<div className='mt-4 md:mt-10'>
-			<h1 className='text-2xl font-bold text-gray-900 lg:text-3xl'>Shopping Cart</h1>
+			<h1 className='text-2xl font-bold text-gray-900'>Shopping Cart</h1>
 
 			<div className='flex flex-col mt-4 md:mt-10 lg:flex-row lg:space-x-6'>
 				<main className='lg:w-2/3 divide-y-[1px]'>

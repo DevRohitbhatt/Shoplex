@@ -10,7 +10,7 @@ const total = subTotal + tax + shippingCharges - discount;
 const Payment = () => {
 	return (
 		<div className='mt-4 md:mt-10'>
-			<h1 className='text-2xl font-bold text-gray-900 lg:text-3xl'>Payment</h1>
+			<h1 className='text-2xl font-bold text-gray-900'>Payment</h1>
 
 			<Stepper step={3} />
 

@@ -22,7 +22,7 @@ const Checkout = () => {
 
 	return (
 		<div className='mt-4 md:mt-10'>
-			<h1 className='text-2xl font-bold text-gray-900 lg:text-3xl'>Checkout</h1>
+			<h1 className='text-2xl font-bold text-gray-900'>Checkout</h1>
 
 			<Stepper step={2} />
 
