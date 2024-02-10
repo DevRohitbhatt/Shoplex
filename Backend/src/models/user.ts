@@ -1,7 +1,8 @@
-import { Schema, Types, model } from 'mongoose';
+import { Schema, model } from 'mongoose';
+import validator from 'validator';
 
 interface IUser extends Document {
-	_id: Types.ObjectId;
+	_id: string;
 	name: string;
 	email: string;
 	photo: string;
@@ -14,10 +15,10 @@ interface IUser extends Document {
 	age: number;
 }
 
-const userSchema = new Schema<IUser>(
+const userSchema = new Schema(
 	{
 		_id: {
-			type: Schema.Types.ObjectId,
+			type: String,
 			required: [true, 'Please enter ID'],
 		},
 		name: {
@@ -28,6 +29,7 @@ const userSchema = new Schema<IUser>(
 			type: String,
 			unique: [true, 'Email already Exist'],
 			required: [true, 'Please enter Name'],
+			validate: validator._default.isEmail,
 		},
 		photo: {
 			type: String,
@@ -53,4 +55,16 @@ const userSchema = new Schema<IUser>(
 	}
 );
 
-export const User = model('User', userSchema);
+userSchema.virtual('age').get(() => {
+	const today = new Date();
+	const dob = this.dob;
+	let age = today.getFullYear() - dob.getFullYear();
+
+	if (today.getMonth() < dob.getMonth() || (today.getMonth() === dob.getMonth() && today.getDate() < dob.getDate())) {
+		age--;
+	}
+
+	return age;
+});
+
+export const User = model<IUser>('User', userSchema);
