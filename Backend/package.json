@@ -12,11 +12,19 @@
 	"author": "Rohit Bhatt",
 	"license": "ISC",
 	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"cookie-parser": "^1.4.6",
 		"dotenv": "^16.4.1",
 		"express": "^4.18.2",
-		"mongoose": "^8.1.1"
+		"jsonwebtoken": "^9.0.2",
+		"mongoose": "^8.1.1",
+		"multer": "^1.4.5-lts.1",
+		"validator": "^13.11.0"
 	},
 	"devDependencies": {
+		"@types/bcrypt": "^5.0.2",
+		"@types/bcryptjs": "^2.4.6",
+		"@types/cors": "^2.8.17",
 		"@types/express": "^4.17.21",
 		"@types/node": "^20.11.16",
 		"@types/validator": "^13.11.9",
