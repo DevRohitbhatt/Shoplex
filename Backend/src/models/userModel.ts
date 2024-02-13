@@ -5,22 +5,13 @@ interface IUser extends Document {
 	_id: string;
 	name: string;
 	email: string;
-	photo: string;
 	role: 'admin' | 'user';
-	gender: 'male' | 'female';
-	dob: Date;
 	createdAt: Date;
 	updatedAt: Date;
-	//   Virtual Attribute
-	age: number;
 }
 
 const userSchema = new Schema(
 	{
-		_id: {
-			type: String,
-			required: [true, 'Please enter ID'],
-		},
 		name: {
 			type: String,
 			required: [true, 'Please enter Name'],
@@ -35,13 +26,10 @@ const userSchema = new Schema(
 			type: String,
 			required: [true, 'Please enter Password'],
 		},
-		photo: {
-			type: String,
-			required: [true, 'Please add Photo'],
-		},
 		role: {
 			type: String,
 			enum: ['admin', 'user'],
+			required: true,
 			default: 'user',
 		},
 	},

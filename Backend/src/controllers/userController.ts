@@ -2,6 +2,7 @@ import { NextFunction, Response, Request } from 'express';
 import { User } from '../models/userModel.js';
 import bcrypt from 'bcryptjs';
 import { NewUserRequestBody } from '../types/types.js';
+import createToken from '../utils/createToken.js';
 
 export const createUser = async (req: Request<{}, {}, NewUserRequestBody>, res: Response, next: NextFunction) => {
 	let { name, email, password } = req.body;
@@ -13,12 +14,13 @@ export const createUser = async (req: Request<{}, {}, NewUserRequestBody>, res: 
 	const userExists = await User.findOne({ email });
 	if (userExists) res.status(400).send('User already exists');
 
-	const salt = bcrypt.getSalt('10');
+	const salt = await bcrypt.genSalt(10);
 	const hashedPassword = await bcrypt.hash(password, salt);
 	const newUser = new User({ name, email, password: hashedPassword });
 
 	try {
 		await newUser.save();
+		createToken(res, newUser._id);
 
 		res.status(201).json({
 			_id: newUser._id,
