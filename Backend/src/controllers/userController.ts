@@ -36,3 +36,8 @@ export const createUser = async (req: Request<{}, {}, NewUserRequestBody>, res: 
 		throw new Error('Invalid user data');
 	}
 };
+
+export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
+	const user = await User.find({});
+	res.json(user);
+};
