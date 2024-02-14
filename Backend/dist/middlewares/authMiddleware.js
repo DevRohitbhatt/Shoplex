@@ -7,7 +7,7 @@ export const authenticate = asyncHandler(async (req, res, next) => {
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             const user = await User.findById(decoded).select('-password');
-            req. = { ...req.body, user };
+            req.user = { ...req.body, user };
             console.log(req.body);
             next();
         }
