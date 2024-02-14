@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 import { connectDB } from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 
@@ -13,6 +14,7 @@ const mongoUrl = process.env.MONGO_URI || '';
 connectDB(mongoUrl);
 
 const app = express();
+app.use(cookieParser());
 
 app.use(express.json());
 
