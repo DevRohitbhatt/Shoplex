@@ -10,6 +10,7 @@ const port = process.env.PORT || 4000;
 const mongoUrl = process.env.MONGO_URI || '';
 connectDB(mongoUrl);
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
 app.get('/', (req, res) => {

@@ -1,7 +1,8 @@
 import { User } from '../models/userModel.js';
 import bcrypt from 'bcryptjs';
 import createToken from '../utils/createToken.js';
-export const createUser = async (req, res, next) => {
+import asyncHandler from '../middlewares/asyncHandler.js';
+export const createUser = asyncHandler(async (req, res) => {
     let { name, email, password } = req.body;
     if (!name || !email || !password) {
         throw new Error('Please fill all the inputs.');
@@ -29,8 +30,8 @@ export const createUser = async (req, res, next) => {
         });
         throw new Error('Invalid user data');
     }
-};
-export const getAllUsers = async (req, res, next) => {
+});
+export const getAllUsers = asyncHandler(async (req, res) => {
     const user = await User.find({});
     res.json(user);
-};
+});

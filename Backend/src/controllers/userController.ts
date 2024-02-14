@@ -1,10 +1,11 @@
-import { NextFunction, Response, Request } from 'express';
+import { Response, Request } from 'express';
 import { User } from '../models/userModel.js';
 import bcrypt from 'bcryptjs';
 import { NewUserRequestBody } from '../types/types.js';
 import createToken from '../utils/createToken.js';
+import asyncHandler from '../middlewares/asyncHandler.js';
 
-export const createUser = async (req: Request<{}, {}, NewUserRequestBody>, res: Response, next: NextFunction) => {
+export const createUser = asyncHandler(async (req: Request<{}, {}, NewUserRequestBody>, res: Response) => {
 	let { name, email, password } = req.body;
 
 	if (!name || !email || !password) {
@@ -35,9 +36,9 @@ export const createUser = async (req: Request<{}, {}, NewUserRequestBody>, res: 
 		});
 		throw new Error('Invalid user data');
 	}
-};
+});
 
-export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
+export const getAllUsers = asyncHandler(async (req: Request, res: Response) => {
 	const user = await User.find({});
 	res.json(user);
-};
+});
