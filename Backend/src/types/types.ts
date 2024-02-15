@@ -5,9 +5,17 @@ export interface NewUserRequestBody {
 	email: string;
 	password: string;
 	role: string;
-	photo: string;
 	_id: string;
 }
+
+export type User = {
+	name?: string;
+	email?: string;
+	role?: string;
+	_id?: string;
+	createdAt?: Date;
+	updatedAt?: Date;
+};
 
 export type ControllerType = (
 	req: Request,

@@ -6,9 +6,7 @@ export const authenticate = asyncHandler(async (req, res, next) => {
     if (token) {
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            const user = await User.findById(decoded).select('-password');
-            req.user = { ...req.body, user };
-            console.log(req.body);
+            req.user = await User.findById(decoded).select('-password');
             next();
         }
         catch (error) {
@@ -26,7 +24,7 @@ export const authenticate = asyncHandler(async (req, res, next) => {
     }
 });
 export const authorizeAdmin = asyncHandler(async (req, res, next) => {
-    if (req.body.user && req.body.user.role === 'admin') {
+    if (req.user && req.user.role === 'admin') {
         next();
     }
     else {
