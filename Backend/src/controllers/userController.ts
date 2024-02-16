@@ -29,6 +29,7 @@ export const createUser = asyncHandler(async (req: Request<{}, {}, NewUserReques
 			email: newUser.email,
 			role: newUser.role,
 		});
+		return;
 	} catch (err) {
 		res.status(200).json({
 			success: false,
@@ -41,6 +42,7 @@ export const createUser = asyncHandler(async (req: Request<{}, {}, NewUserReques
 export const getAllUsers = asyncHandler(async (req: Request, res: Response) => {
 	const user = await User.find({});
 	res.json(user);
+	return;
 });
 
 export const loginUser = asyncHandler(async (req: Request<{}, {}, NewUserRequestBody>, res: Response) => {
@@ -97,6 +99,7 @@ export const getUserProfile = asyncHandler(async (req: Request, res: Response) =
 			username: user.name,
 			email: user.email,
 		});
+		return;
 	} else {
 		res.status(404);
 		throw new Error('User not found.');
@@ -124,6 +127,7 @@ export const updateUserProfile = asyncHandler(async (req: Request, res: Response
 			email: updatedUser.email,
 			role: updatedUser.role,
 		});
+		return;
 	} else {
 		res.status(404);
 		throw new Error('User not found.');
@@ -144,6 +148,7 @@ export const deleteUserById = asyncHandler(async (req: Request, res: Response) =
 			success: true,
 			message: 'User removed',
 		});
+		return;
 	} else {
 		res.status(404);
 		throw new Error('User not found.');
@@ -155,6 +160,7 @@ export const getUserById = asyncHandler(async (req: Request, res: Response) => {
 
 	if (user) {
 		res.json(user);
+		return;
 	} else {
 		res.status(404);
 		throw new Error('User not found');
@@ -177,6 +183,7 @@ export const updateUserById = asyncHandler(async (req: Request, res: Response) =
 			email: updatedUser.email,
 			role: updatedUser.role,
 		});
+		return;
 	} else {
 		res.status(404);
 		throw new Error('User not found');

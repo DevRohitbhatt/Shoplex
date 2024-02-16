@@ -27,3 +27,12 @@ export interface NewCategoryRequestBody {
 	name: string;
 	_id: string;
 }
+
+export interface NewProductRequestBody {
+	name: string;
+	description: string;
+	price: number;
+	brand: string;
+	category: string;
+	quantity: number;
+}

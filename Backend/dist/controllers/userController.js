@@ -22,6 +22,7 @@ export const createUser = asyncHandler(async (req, res) => {
             email: newUser.email,
             role: newUser.role,
         });
+        return;
     }
     catch (err) {
         res.status(200).json({
@@ -34,6 +35,7 @@ export const createUser = asyncHandler(async (req, res) => {
 export const getAllUsers = asyncHandler(async (req, res) => {
     const user = await User.find({});
     res.json(user);
+    return;
 });
 export const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -87,6 +89,7 @@ export const getUserProfile = asyncHandler(async (req, res) => {
             username: user.name,
             email: user.email,
         });
+        return;
     }
     else {
         res.status(404);
@@ -110,6 +113,7 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
             email: updatedUser.email,
             role: updatedUser.role,
         });
+        return;
     }
     else {
         res.status(404);
@@ -128,6 +132,7 @@ export const deleteUserById = asyncHandler(async (req, res) => {
             success: true,
             message: 'User removed',
         });
+        return;
     }
     else {
         res.status(404);
@@ -138,6 +143,7 @@ export const getUserById = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
         res.json(user);
+        return;
     }
     else {
         res.status(404);
@@ -157,6 +163,7 @@ export const updateUserById = asyncHandler(async (req, res) => {
             email: updatedUser.email,
             role: updatedUser.role,
         });
+        return;
     }
     else {
         res.status(404);
