@@ -29,6 +29,8 @@ app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/category', categoryRoutes);
 app.use('/api/v1/product', productRoutes);
 
+app.use('./uploads', express.static('uploads'));
+
 app.listen(port, () => {
 	console.log(`server listening on port: ${port}`);
 });

@@ -2,6 +2,7 @@ import { Product } from '../models/productModel.js';
 import asyncHandler from '../middlewares/asyncHandler.js';
 import { Request, Response } from 'express';
 import { NewProductRequestBody } from '../types/types.js';
+import { rm } from 'fs';
 
 export const addProduct = asyncHandler(async (req: Request<{}, {}, NewProductRequestBody>, res: Response) => {
 	try {
@@ -16,6 +17,9 @@ export const addProduct = asyncHandler(async (req: Request<{}, {}, NewProductReq
 		}
 
 		if (!name || !description || !price || !category || !quantity) {
+			rm(photo.path, () => {
+				console.log('Deleted');
+			});
 			return res.status(400).json({
 				success: false,
 				message: 'Please provide all fields',
@@ -33,10 +37,17 @@ export const addProduct = asyncHandler(async (req: Request<{}, {}, NewProductReq
 		});
 
 		await product.save();
+		console.log('ujjwal');
+		res.status(201).json({
+			success: true,
+			product: product,
+		});
+		return;
 	} catch (error) {
 		res.status(200).json({
 			success: false,
 			message: error,
 		});
+		return;
 	}
 });
