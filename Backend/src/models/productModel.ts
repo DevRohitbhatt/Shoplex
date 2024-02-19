@@ -1,6 +1,20 @@
 import { Schema, model } from 'mongoose';
 const { ObjectId } = Schema;
 
+interface IProduct {
+	name: string;
+	image: string;
+	brand: string;
+	quantity: number;
+	category: string;
+	description: string;
+	reviews: string[];
+	rating: number;
+	numReviews: number;
+	price: number;
+	countInStock: number;
+}
+
 const reviewSchema = new Schema(
 	{
 		name: { type: String, required: true },
@@ -32,4 +46,4 @@ const productSchema = new Schema(
 	{ timestamps: true }
 );
 
-export const Product = model('Product', productSchema);
+export const Product = model<IProduct>('Product', productSchema);
