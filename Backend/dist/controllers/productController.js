@@ -1,6 +1,7 @@
 import { Product } from '../models/productModel.js';
 import asyncHandler from '../middlewares/asyncHandler.js';
 import { rm } from 'fs';
+import { myCache } from '../index.js';
 export const addProduct = asyncHandler(async (req, res) => {
     try {
         const { name, description, price, category, quantity, brand } = req.body;
@@ -184,6 +185,7 @@ export const fetchAllProducts = asyncHandler(async (req, res) => {
 export const fetchLatestProducts = asyncHandler(async (req, res) => {
     try {
         const product = await Product.find({}).sort({ _createdAt: -1 }).limit(4);
+        myCache.set;
         return res.status(201).json({
             success: true,
             products: product,
