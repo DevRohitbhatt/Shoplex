@@ -3,6 +3,7 @@ import asyncHandler from '../middlewares/asyncHandler.js';
 import { Request, Response } from 'express';
 import { BaseQuery, NewProductRequestBody, SearchRequestQuery } from '../types/types.js';
 import { rm } from 'fs';
+import { myCache } from '../index.js';
 
 export const addProduct = asyncHandler(async (req: Request<{}, {}, NewProductRequestBody>, res: Response) => {
 	try {
@@ -200,6 +201,8 @@ export const fetchAllProducts = asyncHandler(async (req: Request<{}, {}, {}, Sea
 export const fetchLatestProducts = asyncHandler(async (req: Request, res: Response) => {
 	try {
 		const product = await Product.find({}).sort({ _createdAt: -1 }).limit(4);
+
+		myCache.set;
 
 		return res.status(201).json({
 			success: true,
