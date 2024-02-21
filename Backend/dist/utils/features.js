@@ -8,4 +8,7 @@ export const invalidateCache = ({ product, category, order, admin, userId, order
             productId.forEach((i) => productKeys.push(`product-${i}`));
         myCache.del(productKeys);
     }
+    if (category) {
+        const categoryKeys = [''];
+    }
 };
