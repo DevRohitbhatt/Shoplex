@@ -153,7 +153,6 @@ export const fetchAdminProduct = asyncHandler(async (req: Request, res: Response
 
 export const fetchAllProducts = asyncHandler(async (req: Request<{}, {}, {}, SearchRequestQuery>, res: Response) => {
 	try {
-		console.log('ujjwal');
 		const { search, category, price, sort } = req.query;
 		const page = Number(req.query.page) || 1;
 
@@ -200,13 +199,17 @@ export const fetchAllProducts = asyncHandler(async (req: Request<{}, {}, {}, Sea
 
 export const fetchLatestProducts = asyncHandler(async (req: Request, res: Response) => {
 	try {
-		const product = await Product.find({}).sort({ _createdAt: -1 }).limit(4);
+		let products = [];
 
-		myCache.set;
+		if (myCache.has('latest-product')) products = JSON.parse(myCache.get('latest-product')!);
+		else {
+			products = await Product.find({}).sort({ _createdAt: -1 }).limit(4);
+			myCache.set('latest-product', JSON.stringify(products));
+		}
 
 		return res.status(201).json({
 			success: true,
-			products: product,
+			products: products,
 		});
 	} catch (error) {
 		return res.status(404).json({
@@ -239,9 +242,24 @@ export const addProductReview = asyncHandler(async (req: Request, res: Response)
 		const product = await Product.findById(id);
 
 		if (product) {
-			const alreadyReviewed = await product.reviews.find((r) => r.user.toString() === req.user?._id?.toString());
+			const alreadyReviewed = product.reviews.find((r) => r.user.toString() === req.user?._id?.toString());
 
-			if (alreadyReviewed) return res.status(409).json({ message: 'Already reviewed' });
+			if (alreadyReviewed) return res.status(409).json({ message: 'Product already reviewed' });
+
+			const review = {
+				name: req.user?.name!,
+				rating: Number(rating),
+				comment,
+				user: req.user?._id!,
+			};
+
+			product.reviews.push(review);
+
+			product.numReviews = product?.reviews.length;
+
+			product.rating = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
+
+			await product.save();
 		}
 	} catch (error) {
 		return res.status(404).json({

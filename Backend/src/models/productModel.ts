@@ -8,7 +8,14 @@ interface IProduct {
 	quantity: number;
 	category: string;
 	description: string;
-	reviews: string[];
+	reviews: [
+		{
+			name: string;
+			rating: number;
+			comment: string;
+			user: string;
+		}
+	];
 	rating: number;
 	numReviews: number;
 	price: number;

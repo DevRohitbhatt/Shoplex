@@ -145,7 +145,6 @@ export const fetchAdminProduct = asyncHandler(async (req, res) => {
 });
 export const fetchAllProducts = asyncHandler(async (req, res) => {
     try {
-        console.log('ujjwal');
         const { search, category, price, sort } = req.query;
         const page = Number(req.query.page) || 1;
         const limit = Number(process.env.PRODUCT_PER_PAGE) || 16;
@@ -184,11 +183,16 @@ export const fetchAllProducts = asyncHandler(async (req, res) => {
 });
 export const fetchLatestProducts = asyncHandler(async (req, res) => {
     try {
-        const product = await Product.find({}).sort({ _createdAt: -1 }).limit(4);
-        myCache.set;
+        let products = [];
+        if (myCache.has('latest-product'))
+            products = JSON.parse(myCache.get('latest-product'));
+        else {
+            products = await Product.find({}).sort({ _createdAt: -1 }).limit(4);
+            myCache.set('latest-product', JSON.stringify(products));
+        }
         return res.status(201).json({
             success: true,
-            products: product,
+            products: products,
         });
     }
     catch (error) {
@@ -219,9 +223,19 @@ export const addProductReview = asyncHandler(async (req, res) => {
         const { id } = req.params;
         const product = await Product.findById(id);
         if (product) {
-            const alreadyReviewed = await product.reviews.find((r) => r.user.toString() === req.user?._id?.toString());
+            const alreadyReviewed = product.reviews.find((r) => r.user.toString() === req.user?._id?.toString());
             if (alreadyReviewed)
-                return res.status(409).json({ message: 'Already reviewed' });
+                return res.status(409).json({ message: 'Product already reviewed' });
+            const review = {
+                name: req.user?.name,
+                rating: Number(rating),
+                comment,
+                user: req.user?._id,
+            };
+            product.reviews.push(review);
+            product.numReviews = product?.reviews.length;
+            product.rating = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
+            await product.save();
         }
     }
     catch (error) {
