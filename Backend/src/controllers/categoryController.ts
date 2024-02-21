@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Category } from '../models/categoryModel.js';
 import { NewCategoryRequestBody } from '../types/types.js';
 import asyncHandler from '../middlewares/asyncHandler.js';
+import { myCache } from '../index.js';
 
 export const createCategory = asyncHandler(async (req: Request<{}, {}, NewCategoryRequestBody>, res: Response) => {
 	try {
@@ -80,8 +81,18 @@ export const removeCategory = asyncHandler(async (req: Request, res: Response) =
 
 export const listCategory = asyncHandler(async (req: Request, res: Response) => {
 	try {
-		const categories = await Category.find({});
-		res.json(categories);
+		let categories;
+
+		if (myCache.has('categories')) categories = JSON.parse(myCache.get('categories')!);
+		else {
+			categories = await Category.find({});
+			myCache.set('categories', JSON.stringify('categories'));
+		}
+
+		res.status(201).json({
+			success: true,
+			categories,
+		});
 	} catch (error) {
 		res.status(200).json({
 			success: false,

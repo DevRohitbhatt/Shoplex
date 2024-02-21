@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { BaseQuery, NewProductRequestBody, SearchRequestQuery } from '../types/types.js';
 import { rm } from 'fs';
 import { myCache } from '../index.js';
+import { invalidateCache } from '../utils/features.js';
 
 export const addProduct = asyncHandler(async (req: Request<{}, {}, NewProductRequestBody>, res: Response) => {
 	try {
@@ -38,9 +39,12 @@ export const addProduct = asyncHandler(async (req: Request<{}, {}, NewProductReq
 		});
 
 		await product.save();
+
+		await invalidateCache({ product: true });
+
 		res.status(201).json({
 			success: true,
-			product: product,
+			product,
 		});
 		return;
 	} catch (error) {
@@ -77,10 +81,13 @@ export const updateProductDetails = asyncHandler(async (req: Request, res: Respo
 		if (brand) product.brand = brand;
 
 		await product.save();
+
+		await invalidateCache({ product: true });
+
 		res.status(201).json({
 			success: true,
 			message: 'Product saved successfully',
-			product: product,
+			product,
 		});
 		return;
 	} catch (error) {
@@ -104,6 +111,9 @@ export const removeProduct = asyncHandler(async (req: Request, res: Response) =>
 		});
 
 		await Product.findByIdAndDelete(id);
+
+		await invalidateCache({ product: true });
+
 		res.status(201).json({
 			success: true,
 			message: 'Product deleted successfully',
@@ -120,14 +130,19 @@ export const removeProduct = asyncHandler(async (req: Request, res: Response) =>
 
 export const getProductById = asyncHandler(async (req: Request, res: Response) => {
 	try {
+		let product;
 		const { id } = req.params;
-		const product = await Product.findById(id);
 
-		if (!product) return res.status(404).json({ message: 'Product not found' });
+		if (myCache.has(`product-${id}`)) product = JSON.parse(myCache.get(`product-${id}`)!);
+		else {
+			product = await Product.findById(id);
+			if (!product) return res.status(404).json({ message: 'Product not found' });
+			myCache.set(`product-${id}`, JSON.stringify(product));
+		}
 
 		res.status(201).json({
 			success: true,
-			product: product,
+			product,
 		});
 		return;
 	} catch (error) {
@@ -141,8 +156,18 @@ export const getProductById = asyncHandler(async (req: Request, res: Response) =
 
 export const fetchAdminProduct = asyncHandler(async (req: Request, res: Response) => {
 	try {
-		const products = await Product.find({}).sort({ _createdAt: -1 });
-		return res.json(products);
+		let products;
+
+		if (myCache.has('all-products')) products = JSON.parse(myCache.get('all-products')!);
+		else {
+			products = await Product.find({}).sort({ _createdAt: -1 });
+			myCache.set('all-products', JSON.stringify(products));
+		}
+
+		return res.status(201).json({
+			success: true,
+			products,
+		});
 	} catch (error) {
 		res.status(404).json({
 			success: false,
@@ -199,12 +224,12 @@ export const fetchAllProducts = asyncHandler(async (req: Request<{}, {}, {}, Sea
 
 export const fetchLatestProducts = asyncHandler(async (req: Request, res: Response) => {
 	try {
-		let products = [];
+		let products;
 
-		if (myCache.has('latest-product')) products = JSON.parse(myCache.get('latest-product')!);
+		if (myCache.has('latest-products')) products = JSON.parse(myCache.get('latest-products')!);
 		else {
 			products = await Product.find({}).sort({ _createdAt: -1 }).limit(4);
-			myCache.set('latest-product', JSON.stringify(products));
+			myCache.set('latest-products', JSON.stringify(products));
 		}
 
 		return res.status(201).json({
@@ -221,11 +246,17 @@ export const fetchLatestProducts = asyncHandler(async (req: Request, res: Respon
 
 export const fetchTopProducts = asyncHandler(async (req: Request, res: Response) => {
 	try {
-		const product = await Product.find({}).sort({ rating: -1 }).limit(4);
+		let products;
+
+		if (myCache.has('top-products')) products = JSON.parse(myCache.get('top-products')!);
+		else {
+			products = await Product.find({}).sort({ rating: -1 }).limit(4);
+			myCache.set('top-products', JSON.stringify(products));
+		}
 
 		return res.status(201).json({
 			success: true,
-			products: product,
+			products: products,
 		});
 	} catch (error) {
 		return res.status(404).json({

@@ -1,5 +1,6 @@
 import { Category } from '../models/categoryModel.js';
 import asyncHandler from '../middlewares/asyncHandler.js';
+import { myCache } from '../index.js';
 export const createCategory = asyncHandler(async (req, res) => {
     try {
         const { name } = req.body;
@@ -69,8 +70,17 @@ export const removeCategory = asyncHandler(async (req, res) => {
 });
 export const listCategory = asyncHandler(async (req, res) => {
     try {
-        const categories = await Category.find({});
-        res.json(categories);
+        let categories;
+        if (myCache.has('categories'))
+            categories = JSON.parse(myCache.get('categories'));
+        else {
+            categories = await Category.find({});
+            myCache.set('categories', JSON.stringify('categories'));
+        }
+        res.status(201).json({
+            success: true,
+            categories,
+        });
     }
     catch (error) {
         res.status(200).json({
