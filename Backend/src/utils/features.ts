@@ -9,6 +9,7 @@ export const invalidateCache = ({
 	userId,
 	orderId,
 	productId,
+	categoryId,
 }: InvalidateCacheProps) => {
 	if (product) {
 		const productKeys: string[] = ['latest-products', 'top-products', 'all-products'];
@@ -20,6 +21,10 @@ export const invalidateCache = ({
 		myCache.del(productKeys);
 	}
 	if (category) {
-		const categoryKeys: string[] = [''];
+		const categoryKeys: string[] = ['all-categories'];
+
+		if (typeof categoryId === 'string') categoryKeys.push(`category-${categoryId}`);
+
+		if (typeof categoryId === 'object') categoryId.forEach((i) => categoryKeys.push(`category-${i}`));
 	}
 };

@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 
 interface IOrder {
+	_id: string;
 	user: string;
 	orderItems: [
 		{

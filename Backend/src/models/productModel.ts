@@ -2,6 +2,7 @@ import { Schema, model } from 'mongoose';
 const { ObjectId } = Schema;
 
 interface IProduct {
+	_id: string;
 	name: string;
 	image: string;
 	brand: string;

@@ -1,6 +1,7 @@
 import { Category } from '../models/categoryModel.js';
 import asyncHandler from '../middlewares/asyncHandler.js';
 import { myCache } from '../index.js';
+import { invalidateCache } from '../utils/features.js';
 export const createCategory = asyncHandler(async (req, res) => {
     try {
         const { name } = req.body;
@@ -15,7 +16,7 @@ export const createCategory = asyncHandler(async (req, res) => {
             });
         }
         const category = await new Category({ name }).save();
-        console.log(category);
+        invalidateCache({ category: true, admin: true });
         res.status(201).json({
             success: true,
             category: category,
@@ -40,6 +41,7 @@ export const updateCategory = asyncHandler(async (req, res) => {
         }
         category.name = req.body.name || category.name;
         const updatedCategory = await category.save();
+        invalidateCache({ category: true, admin: true });
         res.status(201).json({
             success: true,
             category: updatedCategory,
@@ -55,6 +57,7 @@ export const updateCategory = asyncHandler(async (req, res) => {
 export const removeCategory = asyncHandler(async (req, res) => {
     try {
         const removed = await Category.findByIdAndDelete(req.params.categoryId);
+        invalidateCache({ category: true, admin: true });
         res.status(201).json({
             success: true,
             message: 'Category removed',
@@ -71,11 +74,11 @@ export const removeCategory = asyncHandler(async (req, res) => {
 export const listCategory = asyncHandler(async (req, res) => {
     try {
         let categories;
-        if (myCache.has('categories'))
-            categories = JSON.parse(myCache.get('categories'));
+        if (myCache.has('all-categories'))
+            categories = JSON.parse(myCache.get('all-categories'));
         else {
             categories = await Category.find({});
-            myCache.set('categories', JSON.stringify('categories'));
+            myCache.set('all-categories', JSON.stringify(categories));
         }
         res.status(201).json({
             success: true,
@@ -91,8 +94,20 @@ export const listCategory = asyncHandler(async (req, res) => {
 });
 export const readCategory = asyncHandler(async (req, res) => {
     try {
-        const category = await Category.findById(req.params.id);
-        res.json(category);
+        let category;
+        const { id } = req.params;
+        if (myCache.has(`category-${id}`))
+            category = JSON.parse(myCache.get(`category-${id}`));
+        else {
+            category = await Category.findById(req.params.id);
+            if (!category)
+                return res.status(404).json({ message: 'Category not found' });
+            myCache.set(`category-${id}`, JSON.stringify(category));
+        }
+        res.status(201).json({
+            success: true,
+            category,
+        });
     }
     catch (error) {
         res.status(200).json({
