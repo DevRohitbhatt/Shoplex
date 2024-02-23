@@ -16,3 +16,16 @@ export const invalidateCache = ({ product, category, order, admin, userId, order
             categoryId.forEach((i) => categoryKeys.push(`category-${i}`));
     }
 };
+export const calcPrices = (orderItems) => {
+    const subtotal = Number(orderItems.reduce((acc, item) => acc + item.price * item.quantity, 0));
+    const shippingCost = subtotal > 100 ? 0 : 99;
+    const taxRate = 0.18;
+    const tax = (subtotal * taxRate).toFixed(2);
+    const total = (subtotal + shippingCost + parseFloat(tax)).toFixed(2);
+    return {
+        subtotal: subtotal.toFixed(2),
+        shippingCost: shippingCost.toFixed(2),
+        tax,
+        total,
+    };
+};

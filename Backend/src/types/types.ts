@@ -66,12 +66,13 @@ export type InvalidateCacheProps = {
 };
 
 export type OrderItemType = {
+	reduce(arg0: (acc: any, item: any) => any, arg1: number): unknown;
 	_id: string;
 	name: string;
-	photo: string;
-	price: number;
 	quantity: number;
-	productId: string;
+	image: string;
+	price: number;
+	product: string;
 };
 
 export type ShippingInfoType = {
@@ -79,7 +80,7 @@ export type ShippingInfoType = {
 	city: string;
 	state: string;
 	country: string;
-	pinCode: number;
+	zipCode: number;
 };
 
 export interface NewOrderRequestBody {
@@ -87,7 +88,7 @@ export interface NewOrderRequestBody {
 	user: string;
 	subtotal: number;
 	tax: number;
-	shippingCharges: number;
+	shippingCost: number;
 	discount: number;
 	total: number;
 	orderItems: OrderItemType[];

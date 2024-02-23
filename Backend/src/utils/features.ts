@@ -1,5 +1,5 @@
 import { myCache } from '../index.js';
-import { InvalidateCacheProps } from '../types/types.js';
+import { InvalidateCacheProps, OrderItemType } from '../types/types.js';
 
 export const invalidateCache = ({
 	product,
@@ -27,4 +27,21 @@ export const invalidateCache = ({
 
 		if (typeof categoryId === 'object') categoryId.forEach((i) => categoryKeys.push(`category-${i}`));
 	}
+};
+
+export const calcPrices = (orderItems: OrderItemType) => {
+	const subtotal = Number(orderItems.reduce((acc, item) => acc + item.price * item.quantity, 0));
+
+	const shippingCost = subtotal > 100 ? 0 : 99;
+	const taxRate = 0.18;
+	const tax = (subtotal * taxRate).toFixed(2);
+
+	const total = (subtotal + shippingCost + parseFloat(tax)).toFixed(2);
+
+	return {
+		subtotal: subtotal.toFixed(2),
+		shippingCost: shippingCost.toFixed(2),
+		tax,
+		total,
+	};
 };

@@ -16,7 +16,7 @@ interface IOrder {
 		address: string;
 		city: string;
 		state: string;
-		zipcode: string;
+		zipcode: number;
 		country: string;
 	};
 	paymentMethod: string;
@@ -26,13 +26,14 @@ interface IOrder {
 		update_time: string;
 		email_address: string;
 	};
-	subtotal: string;
-	tax: string;
-	shippingCost: string;
-	discount: string;
-	total: string;
+	subtotal: number;
+	tax: number;
+	shippingCost: number;
+	discount: number;
+	total: number;
 	orderStatus: 'Processing' | 'Shipped' | 'Delivered';
-	orderDate: Date;
+	paidAt: Date;
+	deliveredAt: Date;
 }
 
 const orderSchema = new Schema(
@@ -56,7 +57,7 @@ const orderSchema = new Schema(
 			address: { type: String, required: true },
 			city: { type: String, required: true },
 			state: { type: String, required: true },
-			zipcode: { type: String, required: true },
+			zipcode: { type: Number, required: true },
 			country: { type: String, required: true },
 		},
 
@@ -72,17 +73,18 @@ const orderSchema = new Schema(
 			email_address: { type: String },
 		},
 
-		subtotal: { type: String, required: true },
-		tax: { type: String, required: true },
-		shippingCost: { type: String, required: true },
-		discount: { type: String, required: true },
-		total: { type: String, required: true },
+		subtotal: { type: Number, required: true, default: 0.0 },
+		tax: { type: Number, required: true, default: 0.0 },
+		shippingCost: { type: Number, required: true, default: 0.0 },
+		discount: { type: Number, required: true, default: 0.0 },
+		total: { type: Number, required: true, default: 0.0 },
 		orderStatus: {
 			type: String,
 			enum: ['Processing', 'Shipped', 'Delivered'],
-			required: true,
+			default: 'Processing',
 		},
-		orderDate: { type: Date, required: true },
+		paidAt: { type: Date },
+		deliveredAt: { type: Date },
 	},
 	{
 		timestamps: true,
