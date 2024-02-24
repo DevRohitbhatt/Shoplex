@@ -6,129 +6,94 @@ import { myCache } from '../index.js';
 import { invalidateCache } from '../utils/features.js';
 
 export const createCategory = asyncHandler(async (req: Request<{}, {}, NewCategoryRequestBody>, res: Response) => {
-	try {
-		const { name } = req.body;
+	const { name } = req.body;
 
-		if (!name) {
-			throw new Error('Please provide category name.');
-		}
+	if (!name) {
+		throw new Error('Please provide category name.');
+	}
 
-		const categoryExists = await Category.findOne({ name });
-		if (categoryExists) {
-			return res.status(409).json({
-				success: false,
-				message: 'Category already exists',
-			});
-		}
-
-		const category = await new Category({ name }).save();
-
-		invalidateCache({ category: true, admin: true });
-
-		res.status(201).json({
-			success: true,
-			category: category,
-		});
-	} catch (error) {
-		res.status(500).json({
+	const categoryExists = await Category.findOne({ name });
+	if (categoryExists) {
+		return res.status(409).json({
 			success: false,
-			message: error,
+			message: 'Category already exists',
 		});
 	}
+
+	const category = await new Category({ name }).save();
+
+	invalidateCache({ category: true, admin: true });
+
+	return res.status(201).json({
+		success: true,
+		category: category,
+	});
 });
 
 export const updateCategory = asyncHandler(async (req: Request, res: Response) => {
-	try {
-		const { categoryId } = req.params;
+	const { categoryId } = req.params;
 
-		const category = await Category.findOne({ _id: categoryId });
+	const category = await Category.findOne({ _id: categoryId });
 
-		if (!category) {
-			return res.status(409).json({
-				success: false,
-				message: 'Category not found',
-			});
-		}
-
-		category.name = req.body.name || category.name;
-
-		const updatedCategory = await category.save();
-
-		invalidateCache({ category: true, admin: true });
-
-		res.status(201).json({
-			success: true,
-			category: updatedCategory,
-		});
-	} catch (error) {
-		res.status(500).json({
+	if (!category) {
+		return res.status(409).json({
 			success: false,
-			message: error,
+			message: 'Category not found',
 		});
 	}
+
+	category.name = req.body.name || category.name;
+
+	const updatedCategory = await category.save();
+
+	invalidateCache({ category: true, admin: true });
+
+	return res.status(201).json({
+		success: true,
+		category: updatedCategory,
+	});
 });
 
 export const removeCategory = asyncHandler(async (req: Request, res: Response) => {
-	try {
-		const removed = await Category.findByIdAndDelete(req.params.categoryId);
+	const removed = await Category.findByIdAndDelete(req.params.categoryId);
 
-		invalidateCache({ category: true, admin: true });
+	invalidateCache({ category: true, admin: true });
 
-		res.status(201).json({
-			success: true,
-			message: 'Category removed',
-			category: removed,
-		});
-	} catch (error) {
-		res.status(500).json({
-			success: false,
-			message: error,
-		});
-	}
+	return res.status(201).json({
+		success: true,
+		message: 'Category removed',
+		category: removed,
+	});
 });
 
 export const listCategory = asyncHandler(async (req: Request, res: Response) => {
-	try {
-		let categories;
+	let categories;
 
-		if (myCache.has('all-categories')) categories = JSON.parse(myCache.get('all-categories')!);
-		else {
-			categories = await Category.find({});
-			myCache.set('all-categories', JSON.stringify(categories));
-		}
-
-		res.status(201).json({
-			success: true,
-			categories,
-		});
-	} catch (error) {
-		res.status(500).json({
-			success: false,
-			message: error,
-		});
+	if (myCache.has('all-categories')) categories = JSON.parse(myCache.get('all-categories')!);
+	else {
+		categories = await Category.find({});
+		myCache.set('all-categories', JSON.stringify(categories));
 	}
+
+	return res.status(201).json({
+		success: true,
+		categories,
+	});
 });
 
 export const readCategory = asyncHandler(async (req: Request, res: Response) => {
-	try {
-		let category;
-		const { id } = req.params;
+	let category;
+	const { id } = req.params;
 
-		if (myCache.has(`category-${id}`)) category = JSON.parse(myCache.get(`category-${id}`)!);
-		else {
-			category = await Category.findById(req.params.id);
-			if (!category) return res.status(404).json({ message: 'Category not found' });
-			myCache.set(`category-${id}`, JSON.stringify(category));
-		}
-
-		res.status(201).json({
-			success: true,
-			category,
-		});
-	} catch (error) {
-		res.status(500).json({
-			success: false,
-			message: error,
-		});
+	if (myCache.has(`category-${id}`)) category = JSON.parse(myCache.get(`category-${id}`)!);
+	else {
+		category = await Category.findById(req.params.id);
+		if (!category) return res.status(404).json({ message: 'Category not found' });
+		myCache.set(`category-${id}`, JSON.stringify(category));
 	}
+
+	return res.status(201).json({
+		success: true,
+		category,
+	});
 });
