@@ -40,7 +40,7 @@ export const addProduct = asyncHandler(async (req, res) => {
         return;
     }
     catch (error) {
-        res.status(404).json({
+        res.status(500).json({
             success: false,
             message: error,
         });
@@ -83,7 +83,7 @@ export const updateProductDetails = asyncHandler(async (req, res) => {
         return;
     }
     catch (error) {
-        res.status(404).json({
+        res.status(500).json({
             success: false,
             message: error,
         });
@@ -108,7 +108,7 @@ export const removeProduct = asyncHandler(async (req, res) => {
         return;
     }
     catch (error) {
-        res.status(404).json({
+        res.status(500).json({
             success: false,
             message: error,
         });
@@ -134,7 +134,7 @@ export const getProductById = asyncHandler(async (req, res) => {
         return;
     }
     catch (error) {
-        res.status(404).json({
+        res.status(500).json({
             success: false,
             message: error,
         });
@@ -156,7 +156,7 @@ export const fetchAdminProduct = asyncHandler(async (req, res) => {
         });
     }
     catch (error) {
-        res.status(404).json({
+        res.status(500).json({
             success: false,
             message: error,
         });
@@ -194,7 +194,7 @@ export const fetchAllProducts = asyncHandler(async (req, res) => {
     }
     catch (error) {
         console.log('ujjwal error');
-        return res.status(404).json({
+        return res.status(500).json({
             success: false,
             message: error,
         });
@@ -215,7 +215,7 @@ export const fetchLatestProducts = asyncHandler(async (req, res) => {
         });
     }
     catch (error) {
-        return res.status(404).json({
+        return res.status(500).json({
             success: false,
             message: error,
         });
@@ -236,7 +236,7 @@ export const fetchTopProducts = asyncHandler(async (req, res) => {
         });
     }
     catch (error) {
-        return res.status(404).json({
+        return res.status(500).json({
             success: false,
             message: error,
         });
@@ -264,7 +264,7 @@ export const addProductReview = asyncHandler(async (req, res) => {
         }
     }
     catch (error) {
-        return res.status(404).json({
+        return res.status(500).json({
             success: false,
             message: error,
         });

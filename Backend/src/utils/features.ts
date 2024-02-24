@@ -29,8 +29,8 @@ export const invalidateCache = ({
 	}
 };
 
-export const calcPrices = (orderItems: OrderItemType) => {
-	const subtotal = Number(orderItems.reduce((acc, item) => acc + item.price * item.quantity, 0));
+export const calcPrices = (itemFromDB: any[]) => {
+	const subtotal = Number(itemFromDB.reduce((acc, item) => acc + item.price * item.quantity, 0));
 
 	const shippingCost = subtotal > 100 ? 0 : 99;
 	const taxRate = 0.18;

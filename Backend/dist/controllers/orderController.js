@@ -5,21 +5,25 @@ import { Product } from '../models/productModel.js';
 import { calcPrices } from '../utils/features.js';
 export const createOrder = asyncHandler(async (req, res) => {
     try {
-        const { orderItems, shippingInfo, paymentMethod } = req.body;
+        const { orderItems, shippingInfo } = req.body;
         const user = await User.findById(req.user?._id);
         if (orderItems) {
             if (orderItems.length === 0)
-                res.status(409).json({ message: 'No Order items' });
-            const itemsFromDB = await Product.find({ _id: { $in: orderItems.map((x) => x._id) } });
+                return res.status(409).json({ message: 'No Order items' });
+            const itemsFromDB = await Product.find({
+                _id: { $in: orderItems.map((x) => x.productId) },
+            });
             const dbOrderItems = orderItems.map((itemFromClient) => {
-                const matchingItemFromDB = itemsFromDB.find((itemFromDB) => itemFromDB._id.toString() === itemFromClient._id);
+                const matchingItemFromDB = itemsFromDB.find((itemFromDB) => itemFromDB._id.toString() === itemFromClient.productId);
                 if (!matchingItemFromDB) {
                     res.status(404);
-                    throw new Error(`Product not found: ${itemFromClient._id}`);
+                    throw new Error(`Product not found: ${itemFromClient.productId}`);
                 }
                 return {
-                    ...itemFromClient,
-                    product: itemFromClient._id,
+                    name: matchingItemFromDB.name,
+                    quantity: itemFromClient.quantity,
+                    image: matchingItemFromDB.image,
+                    product: matchingItemFromDB._id,
                     price: matchingItemFromDB.price,
                 };
             });
@@ -28,7 +32,6 @@ export const createOrder = asyncHandler(async (req, res) => {
                 user: user?._id,
                 orderItems: dbOrderItems,
                 shippingInfo,
-                paymentMethod,
                 subtotal,
                 tax,
                 shippingCost,
@@ -43,7 +46,7 @@ export const createOrder = asyncHandler(async (req, res) => {
         }
     }
     catch (error) {
-        return res.status(404).json({
+        return res.status(500).json({
             success: false,
             message: error,
         });
@@ -51,15 +54,94 @@ export const createOrder = asyncHandler(async (req, res) => {
 });
 export const getAllOrders = asyncHandler(async (req, res) => {
     try {
-        const orders = await Order.find({}).populate('user', 'id username');
-        console.log(orders);
+        const orders = await Order.find({}).populate('user', 'id name');
         return res.status(200).json({
             success: true,
             orders,
         });
     }
     catch (error) {
-        return res.status(404).json({
+        return res.status(500).json({
+            success: false,
+            message: error,
+        });
+    }
+});
+export const getUserOrders = asyncHandler(async (req, res) => {
+    try {
+        const orders = await Order.find({ user: req.user?._id });
+        return res.status(201).json({
+            success: true,
+            orders,
+        });
+    }
+    catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error,
+        });
+    }
+});
+export const getOrderById = asyncHandler(async (req, res) => {
+    try {
+        const order = await Order.findById(req.params.id);
+        if (!order)
+            return res.status(409).json({ message: 'Order not found' });
+        return res.status(201).json({
+            success: true,
+            order,
+        });
+    }
+    catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error,
+        });
+    }
+});
+export const processOrder = asyncHandler(async (req, res) => {
+    try {
+        const order = await Order.findById(req.params.id);
+        if (!order)
+            return res.status(409).json({ message: 'Order not found' });
+        switch (order.orderStatus) {
+            case 'Processing':
+                order.orderStatus = 'Shipped';
+                break;
+            case 'Shipped':
+                order.orderStatus = 'Delivered';
+                break;
+            default:
+                order.orderStatus = 'Delivered';
+                break;
+        }
+        await order.save();
+        return res.status(201).json({
+            success: true,
+            message: 'Order Processed Successfully',
+            order,
+        });
+    }
+    catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error,
+        });
+    }
+});
+export const deleteOrder = asyncHandler(async (req, res) => {
+    try {
+        const order = await Order.findById(req.params.id);
+        if (!order)
+            return res.status(409).json({ message: 'Order not found' });
+        await Order.findByIdAndDelete(req.params.id);
+        return res.status(201).json({
+            success: true,
+            message: 'Order Deleted Successfully',
+        });
+    }
+    catch (error) {
+        return res.status(500).json({
             success: false,
             message: error,
         });

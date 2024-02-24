@@ -48,7 +48,7 @@ export const addProduct = asyncHandler(async (req: Request<{}, {}, NewProductReq
 		});
 		return;
 	} catch (error) {
-		res.status(404).json({
+		res.status(500).json({
 			success: false,
 			message: error,
 		});
@@ -91,7 +91,7 @@ export const updateProductDetails = asyncHandler(async (req: Request, res: Respo
 		});
 		return;
 	} catch (error) {
-		res.status(404).json({
+		res.status(500).json({
 			success: false,
 			message: error,
 		});
@@ -120,7 +120,7 @@ export const removeProduct = asyncHandler(async (req: Request, res: Response) =>
 		});
 		return;
 	} catch (error) {
-		res.status(404).json({
+		res.status(500).json({
 			success: false,
 			message: error,
 		});
@@ -146,7 +146,7 @@ export const getProductById = asyncHandler(async (req: Request, res: Response) =
 		});
 		return;
 	} catch (error) {
-		res.status(404).json({
+		res.status(500).json({
 			success: false,
 			message: error,
 		});
@@ -169,7 +169,7 @@ export const fetchAdminProduct = asyncHandler(async (req: Request, res: Response
 			products,
 		});
 	} catch (error) {
-		res.status(404).json({
+		res.status(500).json({
 			success: false,
 			message: error,
 		});
@@ -215,7 +215,7 @@ export const fetchAllProducts = asyncHandler(async (req: Request<{}, {}, {}, Sea
 		});
 	} catch (error) {
 		console.log('ujjwal error');
-		return res.status(404).json({
+		return res.status(500).json({
 			success: false,
 			message: error,
 		});
@@ -237,7 +237,7 @@ export const fetchLatestProducts = asyncHandler(async (req: Request, res: Respon
 			products: products,
 		});
 	} catch (error) {
-		return res.status(404).json({
+		return res.status(500).json({
 			success: false,
 			message: error,
 		});
@@ -259,7 +259,7 @@ export const fetchTopProducts = asyncHandler(async (req: Request, res: Response)
 			products: products,
 		});
 	} catch (error) {
-		return res.status(404).json({
+		return res.status(500).json({
 			success: false,
 			message: error,
 		});
@@ -293,7 +293,7 @@ export const addProductReview = asyncHandler(async (req: Request, res: Response)
 			await product.save();
 		}
 	} catch (error) {
-		return res.status(404).json({
+		return res.status(500).json({
 			success: false,
 			message: error,
 		});

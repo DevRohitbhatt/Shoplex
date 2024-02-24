@@ -30,7 +30,7 @@ export const createCategory = asyncHandler(async (req: Request<{}, {}, NewCatego
 			category: category,
 		});
 	} catch (error) {
-		res.status(200).json({
+		res.status(500).json({
 			success: false,
 			message: error,
 		});
@@ -61,7 +61,7 @@ export const updateCategory = asyncHandler(async (req: Request, res: Response) =
 			category: updatedCategory,
 		});
 	} catch (error) {
-		res.status(200).json({
+		res.status(500).json({
 			success: false,
 			message: error,
 		});
@@ -80,7 +80,7 @@ export const removeCategory = asyncHandler(async (req: Request, res: Response) =
 			category: removed,
 		});
 	} catch (error) {
-		res.status(200).json({
+		res.status(500).json({
 			success: false,
 			message: error,
 		});
@@ -102,7 +102,7 @@ export const listCategory = asyncHandler(async (req: Request, res: Response) => 
 			categories,
 		});
 	} catch (error) {
-		res.status(200).json({
+		res.status(500).json({
 			success: false,
 			message: error,
 		});
@@ -126,7 +126,7 @@ export const readCategory = asyncHandler(async (req: Request, res: Response) => 
 			category,
 		});
 	} catch (error) {
-		res.status(200).json({
+		res.status(500).json({
 			success: false,
 			message: error,
 		});
