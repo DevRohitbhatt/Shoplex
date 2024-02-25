@@ -8,6 +8,7 @@ import categoryRoutes from './routes/categoryRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
+import dashboardRoutes from './routes/dashboardRoutes.js';
 dotenv.config({
     path: './.env',
 });
@@ -27,6 +28,7 @@ app.use('/api/v1/category', categoryRoutes);
 app.use('/api/v1/product', productRoutes);
 app.use('/api/v1/order', orderRoutes);
 app.use('/api/v1/payment', paymentRoutes);
+app.use('/api/v1/dashboard', dashboardRoutes);
 app.use('./uploads', express.static('uploads'));
 app.listen(port, () => {
     console.log(`server listening on port: ${port}`);
