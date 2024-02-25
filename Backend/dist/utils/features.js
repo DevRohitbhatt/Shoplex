@@ -1,4 +1,5 @@
 import { myCache } from '../index.js';
+import { Product } from '../models/productModel.js';
 export const invalidateCache = ({ product, category, order, admin, userId, orderId, productId, categoryId, }) => {
     if (product) {
         const productKeys = ['latest-products', 'top-products', 'all-products'];
@@ -15,6 +16,9 @@ export const invalidateCache = ({ product, category, order, admin, userId, order
         if (typeof categoryId === 'object')
             categoryId.forEach((i) => categoryKeys.push(`category-${i}`));
     }
+    if (order) {
+        const orderKeys = ['all-order', `my-orders-${userId}`, `order-${orderId}`];
+    }
 };
 export const calcPrices = (itemFromDB) => {
     const subtotal = Number(itemFromDB.reduce((acc, item) => acc + item.price * item.quantity, 0));
@@ -28,4 +32,14 @@ export const calcPrices = (itemFromDB) => {
         tax,
         total,
     };
+};
+export const reduceStock = async (orderItems) => {
+    for (let i = 0; i < orderItems.length; i++) {
+        const order = orderItems[i];
+        const product = await Product.findById(order.productId);
+        if (!product)
+            throw new Error('Product Not Found');
+        product.quantity -= order.quantity;
+        await product.save();
+    }
 };
