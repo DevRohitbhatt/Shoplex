@@ -25,6 +25,8 @@ interface IOrder {
 	discount: number;
 	total: number;
 	orderStatus: 'Processing' | 'Shipped' | 'Delivered';
+	createdAt: Date;
+	updatedAt: Date;
 }
 
 const orderSchema = new Schema(
