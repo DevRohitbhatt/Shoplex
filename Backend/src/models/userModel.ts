@@ -6,6 +6,7 @@ interface IUser extends Document {
 	name: string;
 	email: string;
 	password: string;
+	gender: 'male' | 'female';
 	role: 'admin' | 'user';
 	createdAt: Date;
 	updatedAt: Date;
@@ -26,6 +27,11 @@ const userSchema = new Schema(
 		password: {
 			type: String,
 			required: [true, 'Please enter Password'],
+		},
+		gender: {
+			type: String,
+			enum: ['male', 'female'],
+			required: true,
 		},
 		role: {
 			type: String,

@@ -4,6 +4,7 @@ export interface NewUserRequestBody {
 	name: string;
 	email: string;
 	password: string;
+	gender: string;
 	role: string;
 	_id: string;
 }
@@ -11,6 +12,7 @@ export interface NewUserRequestBody {
 export type User = {
 	name?: string;
 	email?: string;
+	gender?: string;
 	role?: string;
 	_id?: string;
 	createdAt?: Date;

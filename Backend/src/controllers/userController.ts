@@ -6,9 +6,9 @@ import createToken from '../utils/createToken.js';
 import asyncHandler from '../middlewares/asyncHandler.js';
 
 export const createUser = asyncHandler(async (req: Request<{}, {}, NewUserRequestBody>, res: Response) => {
-	let { name, email, password } = req.body;
+	let { name, email, password, gender } = req.body;
 
-	if (!name || !email || !password) {
+	if (!name || !email || !password || !gender) {
 		throw new Error('Please fill all the inputs.');
 	}
 
@@ -17,7 +17,7 @@ export const createUser = asyncHandler(async (req: Request<{}, {}, NewUserReques
 
 	const salt = await bcrypt.genSalt(10);
 	const hashedPassword = await bcrypt.hash(password, salt);
-	const newUser = new User({ name, email, password: hashedPassword });
+	const newUser = new User({ name, email, password: hashedPassword, gender });
 
 	await newUser.save();
 	createToken(res, newUser._id);
@@ -26,6 +26,7 @@ export const createUser = asyncHandler(async (req: Request<{}, {}, NewUserReques
 		_id: newUser._id,
 		name: newUser.name,
 		email: newUser.email,
+		gender: newUser.gender,
 		role: newUser.role,
 	});
 });
@@ -54,6 +55,7 @@ export const loginUser = asyncHandler(async (req: Request<{}, {}, NewUserRequest
 				_id: existingUser._id,
 				name: existingUser.name,
 				email: existingUser.email,
+				gender: existingUser.gender,
 				role: existingUser.role,
 			});
 			return;
@@ -93,6 +95,7 @@ export const getUserProfile = asyncHandler(async (req: Request, res: Response) =
 		_id: user._id,
 		username: user.name,
 		email: user.email,
+		gender: user.gender,
 	});
 });
 
@@ -104,6 +107,7 @@ export const updateUserProfile = asyncHandler(async (req: Request, res: Response
 	}
 	user.name = req.body.name || user.name;
 	user.email = req.body.email || user.email;
+	user.gender = req.body.gender || user.gender;
 
 	if (req.body.password) {
 		const salt = await bcrypt.genSalt(10);
@@ -117,6 +121,7 @@ export const updateUserProfile = asyncHandler(async (req: Request, res: Response
 		_id: updatedUser._id,
 		name: updatedUser.name,
 		email: updatedUser.email,
+		gender: updatedUser.gender,
 		role: updatedUser.role,
 	});
 });
@@ -158,6 +163,7 @@ export const updateUserById = asyncHandler(async (req: Request, res: Response) =
 	}
 	user.name = req.body.name || user.name;
 	user.email = req.body.email || user.email;
+	user.gender = req.body.gender || user.gender;
 	user.role = req.body.role || user.role;
 
 	const updatedUser = await user.save();
@@ -166,6 +172,7 @@ export const updateUserById = asyncHandler(async (req: Request, res: Response) =
 		_id: updatedUser._id,
 		name: updatedUser.name,
 		email: updatedUser.email,
+		gender: updatedUser.gender,
 		role: updatedUser.role,
 	});
 });

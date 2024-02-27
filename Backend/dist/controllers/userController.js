@@ -3,8 +3,8 @@ import bcrypt from 'bcryptjs';
 import createToken from '../utils/createToken.js';
 import asyncHandler from '../middlewares/asyncHandler.js';
 export const createUser = asyncHandler(async (req, res) => {
-    let { name, email, password } = req.body;
-    if (!name || !email || !password) {
+    let { name, email, password, gender } = req.body;
+    if (!name || !email || !password || !gender) {
         throw new Error('Please fill all the inputs.');
     }
     const userExists = await User.findOne({ email });
@@ -12,13 +12,14 @@ export const createUser = asyncHandler(async (req, res) => {
         res.status(409).send('User already exists');
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    const newUser = new User({ name, email, password: hashedPassword });
+    const newUser = new User({ name, email, password: hashedPassword, gender });
     await newUser.save();
     createToken(res, newUser._id);
     return res.status(201).json({
         _id: newUser._id,
         name: newUser.name,
         email: newUser.email,
+        gender: newUser.gender,
         role: newUser.role,
     });
 });
@@ -43,6 +44,7 @@ export const loginUser = asyncHandler(async (req, res) => {
                 _id: existingUser._id,
                 name: existingUser.name,
                 email: existingUser.email,
+                gender: existingUser.gender,
                 role: existingUser.role,
             });
             return;
@@ -82,6 +84,7 @@ export const getUserProfile = asyncHandler(async (req, res) => {
         _id: user._id,
         username: user.name,
         email: user.email,
+        gender: user.gender,
     });
 });
 export const updateUserProfile = asyncHandler(async (req, res) => {
@@ -91,6 +94,7 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
     }
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
+    user.gender = req.body.gender || user.gender;
     if (req.body.password) {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
@@ -101,6 +105,7 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
+        gender: updatedUser.gender,
         role: updatedUser.role,
     });
 });
@@ -135,12 +140,14 @@ export const updateUserById = asyncHandler(async (req, res) => {
     }
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
+    user.gender = req.body.gender || user.gender;
     user.role = req.body.role || user.role;
     const updatedUser = await user.save();
     return res.status(201).json({
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
+        gender: updatedUser.gender,
         role: updatedUser.role,
     });
 });
