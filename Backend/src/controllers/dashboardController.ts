@@ -134,7 +134,25 @@ export const getDashboardStats = asyncHandler(async (req: Request, res: Response
 			}
 		});
 
+		const categoriesCountPromise = categories.map((category) => Product.countDocuments({ category }));
+
+		const categoriesCount = await Promise.all(categoriesCountPromise);
+
+		// const categoryCount = await getInventories({
+		// 	categories,
+		// 	productsCount,
+		// });
+
+		const categoryCount: Record<string, number>[] = [];
+
+		categories.forEach((category, i) => {
+			categoryCount.push({
+				[category.name]: Math.round((categoriesCount[i] / productsCount) * 100),
+			});
+		});
+
 		const stats = {
+			categoryCount,
 			changePercentage,
 			counts,
 			chart: {
