@@ -4,7 +4,7 @@ import { myCache } from '../index.js';
 import { Product } from '../models/productModel.js';
 import { User } from '../models/userModel.js';
 import { Order } from '../models/orderModel.js';
-import { calculatePercentage } from '../utils/features.js';
+import { calculatePercentage, getInventories } from '../utils/features.js';
 import { Category } from '../models/categoryModel.js';
 
 export const getDashboardStats = asyncHandler(async (req: Request, res: Response) => {
@@ -75,6 +75,8 @@ export const getDashboardStats = asyncHandler(async (req: Request, res: Response
 			},
 		});
 
+		const latestOrdersPromise = Order.find({}).select(['orderItems', 'discount', 'total', 'orderStatus']).limit(4);
+
 		const [
 			thisMonthProducts,
 			thisMonthUsers,
@@ -87,6 +89,8 @@ export const getDashboardStats = asyncHandler(async (req: Request, res: Response
 			allOrders,
 			lastSixMonthOrders,
 			categories,
+			femaleUsersCount,
+			latestOrders,
 		] = await Promise.all([
 			thisMonthProductsPromise,
 			thisMonthUsersPromise,
@@ -98,7 +102,9 @@ export const getDashboardStats = asyncHandler(async (req: Request, res: Response
 			User.countDocuments(),
 			Order.find({}).select('total'),
 			lastSixMonthOrdersPromise,
-			Category.find({}).select('name'),
+			Category.find({}).distinct('name'),
+			User.countDocuments({ gender: 'female' }),
+			latestOrdersPromise,
 		]);
 
 		const thisMonthRevenue = thisMonthOrders.reduce((total, order) => total + (order.total || 0), 0);
@@ -134,22 +140,23 @@ export const getDashboardStats = asyncHandler(async (req: Request, res: Response
 			}
 		});
 
-		const categoriesCountPromise = categories.map((category) => Product.countDocuments({ category }));
-
-		const categoriesCount = await Promise.all(categoriesCountPromise);
-
-		// const categoryCount = await getInventories({
-		// 	categories,
-		// 	productsCount,
-		// });
-
-		const categoryCount: Record<string, number>[] = [];
-
-		categories.forEach((category, i) => {
-			categoryCount.push({
-				[category.name]: Math.round((categoriesCount[i] / productsCount) * 100),
-			});
+		const categoryCount = await getInventories({
+			categories,
+			productsCount,
 		});
+
+		const userRatio = {
+			male: usersCount - femaleUsersCount,
+			female: femaleUsersCount,
+		};
+
+		const modifiedLatestOrders = latestOrders.map((i) => ({
+			_id: i._id,
+			discount: i.discount,
+			amount: i.total,
+			quantity: i.orderItems.length,
+			status: i.orderStatus,
+		}));
 
 		const stats = {
 			categoryCount,
@@ -159,6 +166,8 @@ export const getDashboardStats = asyncHandler(async (req: Request, res: Response
 				order: orderMonthCounts,
 				revenue: orderMonthyRevenue,
 			},
+			userRatio,
+			latestOrders: modifiedLatestOrders,
 		};
 
 		myCache.set('dashboard-stats', JSON.stringify(stats));

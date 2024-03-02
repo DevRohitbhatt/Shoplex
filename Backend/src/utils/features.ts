@@ -27,9 +27,16 @@ export const invalidateCache = ({
 		if (typeof categoryId === 'string') categoryKeys.push(`category-${categoryId}`);
 
 		if (typeof categoryId === 'object') categoryId.forEach((i) => categoryKeys.push(`category-${i}`));
+
+		myCache.del(categoryKeys);
 	}
 	if (order) {
 		const orderKeys: string[] = ['all-order', `my-orders-${userId}`, `order-${orderId}`];
+
+		myCache.del(orderKeys);
+	}
+	if (admin) {
+		myCache.del(['dashboard-stats']);
 	}
 };
 
@@ -64,4 +71,26 @@ export const calculatePercentage = (thisMonth: number, lastMonth: number) => {
 	if (lastMonth === 0) return thisMonth * 100;
 	const percent = ((thisMonth - lastMonth) / lastMonth) * 100;
 	return Number(percent.toFixed(0));
+};
+
+export const getInventories = async ({
+	categories,
+	productsCount,
+}: {
+	categories: string[];
+	productsCount: number;
+}) => {
+	const productPerCategoriesCountPromise = categories.map((category) => Product.countDocuments({ category }));
+
+	const productPerCategoriesCount = await Promise.all(productPerCategoriesCountPromise);
+
+	const categoryCount: Record<string, number>[] = [];
+
+	categories.forEach((category, i) => {
+		categoryCount.push({
+			[category]: Math.round((productPerCategoriesCount[i] / productsCount) * 100),
+		});
+	});
+
+	return categoryCount;
 };

@@ -3,7 +3,7 @@ import { myCache } from '../index.js';
 import { Product } from '../models/productModel.js';
 import { User } from '../models/userModel.js';
 import { Order } from '../models/orderModel.js';
-import { calculatePercentage } from '../utils/features.js';
+import { calculatePercentage, getInventories } from '../utils/features.js';
 import { Category } from '../models/categoryModel.js';
 export const getDashboardStats = asyncHandler(async (req, res) => {
     let stats;
@@ -63,7 +63,8 @@ export const getDashboardStats = asyncHandler(async (req, res) => {
                 $lte: today,
             },
         });
-        const [thisMonthProducts, thisMonthUsers, thisMonthOrders, lastMonthProducts, lastMonthUsers, lastMonthOrders, productsCount, usersCount, allOrders, lastSixMonthOrders, categories,] = await Promise.all([
+        const latestOrdersPromise = Order.find({}).select(['orderItems', 'discount', 'total', 'orderStatus']).limit(4);
+        const [thisMonthProducts, thisMonthUsers, thisMonthOrders, lastMonthProducts, lastMonthUsers, lastMonthOrders, productsCount, usersCount, allOrders, lastSixMonthOrders, categories, femaleUsersCount, latestOrders,] = await Promise.all([
             thisMonthProductsPromise,
             thisMonthUsersPromise,
             thisMonthOrdersPromise,
@@ -75,6 +76,8 @@ export const getDashboardStats = asyncHandler(async (req, res) => {
             Order.find({}).select('total'),
             lastSixMonthOrdersPromise,
             Category.find({}).select('name'),
+            User.countDocuments({ gender: 'female' }),
+            latestOrdersPromise,
         ]);
         const thisMonthRevenue = thisMonthOrders.reduce((total, order) => total + (order.total || 0), 0);
         const lastMonthRevenue = lastMonthOrders.reduce((total, order) => total + (order.total || 0), 0);
@@ -101,18 +104,21 @@ export const getDashboardStats = asyncHandler(async (req, res) => {
                 orderMonthyRevenue[6 - monthDiff - 1] += order.total;
             }
         });
-        const categoriesCountPromise = categories.map((category) => Product.countDocuments({ category }));
-        const categoriesCount = await Promise.all(categoriesCountPromise);
-        // const categoryCount = await getInventories({
-        // 	categories,
-        // 	productsCount,
-        // });
-        const categoryCount = [];
-        categories.forEach((category, i) => {
-            categoryCount.push({
-                [category.name]: Math.round((categoriesCount[i] / productsCount) * 100),
-            });
+        const categoryCount = await getInventories({
+            categories,
+            productsCount,
         });
+        const userRatio = {
+            male: usersCount - femaleUsersCount,
+            female: femaleUsersCount,
+        };
+        const modifiedLatestOrders = latestOrders.map((i) => ({
+            _id: i._id,
+            discount: i.discount,
+            amount: i.total,
+            quantity: i.orderItems.length,
+            status: i.orderStatus,
+        }));
         const stats = {
             categoryCount,
             changePercentage,
@@ -121,6 +127,8 @@ export const getDashboardStats = asyncHandler(async (req, res) => {
                 order: orderMonthCounts,
                 revenue: orderMonthyRevenue,
             },
+            userRatio,
+            latestOrders: modifiedLatestOrders,
         };
         myCache.set('dashboard-stats', JSON.stringify(stats));
     }
