@@ -15,9 +15,14 @@ export const invalidateCache = ({ product, category, order, admin, userId, order
             categoryKeys.push(`category-${categoryId}`);
         if (typeof categoryId === 'object')
             categoryId.forEach((i) => categoryKeys.push(`category-${i}`));
+        myCache.del(categoryKeys);
     }
     if (order) {
         const orderKeys = ['all-order', `my-orders-${userId}`, `order-${orderId}`];
+        myCache.del(orderKeys);
+    }
+    if (admin) {
+        myCache.del(['dashboard-stats']);
     }
 };
 export const calcPrices = (itemFromDB) => {
@@ -44,7 +49,6 @@ export const reduceStock = async (orderItems) => {
     }
 };
 export const calculatePercentage = (thisMonth, lastMonth) => {
-    console.log(thisMonth, lastMonth);
     if (lastMonth === 0)
         return thisMonth * 100;
     const percent = ((thisMonth - lastMonth) / lastMonth) * 100;
@@ -56,7 +60,7 @@ export const getInventories = async ({ categories, productsCount, }) => {
     const categoryCount = [];
     categories.forEach((category, i) => {
         categoryCount.push({
-            [category.name]: Math.round((productPerCategoriesCount[i] / productsCount) * 100),
+            [category]: Math.round((productPerCategoriesCount[i] / productsCount) * 100),
         });
     });
     return categoryCount;
