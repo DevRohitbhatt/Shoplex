@@ -75,7 +75,7 @@ export const getDashboardStats = asyncHandler(async (req, res) => {
             User.countDocuments(),
             Order.find({}).select('total'),
             lastSixMonthOrdersPromise,
-            Category.find({}).select('name'),
+            Category.find({}).distinct('name'),
             User.countDocuments({ gender: 'female' }),
             latestOrdersPromise,
         ]);

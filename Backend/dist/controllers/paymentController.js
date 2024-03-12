@@ -1,5 +1,20 @@
 import asyncHandler from '../middlewares/asyncHandler.js';
 import { Coupon } from '../models/couponModel.js';
+import { stripe } from '../index.js';
+export const createPaymentIntent = asyncHandler(async (req, res) => {
+    console.log('hello');
+    const { amount } = req.body;
+    if (!amount)
+        return res.status(409).json({ message: '"Please enter amount' });
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount: Number(amount) * 100,
+        currency: 'inr',
+    });
+    return res.status(201).json({
+        success: true,
+        clientSecret: paymentIntent.client_secret,
+    });
+});
 export const newCoupon = asyncHandler(async (req, res) => {
     const { coupon, amount } = req.body;
     if (!coupon || !amount)

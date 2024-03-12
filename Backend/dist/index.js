@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import { connectDB } from './config/db.js';
 import NodeCache from 'node-cache';
+import Stripe from 'stripe';
 import userRoutes from './routes/userRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js';
 import productRoutes from './routes/productRoutes.js';
@@ -14,7 +15,9 @@ dotenv.config({
 });
 const port = process.env.PORT || 4000;
 const mongoUrl = process.env.MONGO_URI || '';
+const stripeKey = process.env.STRIPE_KEY || '';
 connectDB(mongoUrl);
+export const stripe = new Stripe(stripeKey);
 export const myCache = new NodeCache();
 const app = express();
 app.use(express.urlencoded({ extended: true }));
