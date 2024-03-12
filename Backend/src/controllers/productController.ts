@@ -39,7 +39,7 @@ export const addProduct = asyncHandler(async (req: Request<{}, {}, NewProductReq
 
 	await product.save();
 
-	invalidateCache({ product: true });
+	invalidateCache({ product: true, admin: true });
 
 	res.status(201).json({
 		success: true,
@@ -73,7 +73,7 @@ export const updateProductDetails = asyncHandler(async (req: Request, res: Respo
 
 	await product.save();
 
-	invalidateCache({ product: true });
+	invalidateCache({ product: true, productId: String(product._id), admin: true });
 
 	res.status(201).json({
 		success: true,
@@ -95,7 +95,7 @@ export const removeProduct = asyncHandler(async (req: Request, res: Response) =>
 
 	await Product.findByIdAndDelete(id);
 
-	invalidateCache({ product: true });
+	invalidateCache({ product: true, productId: String(product._id), admin: true });
 
 	res.status(201).json({
 		success: true,

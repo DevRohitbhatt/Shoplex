@@ -31,7 +31,7 @@ export const addProduct = asyncHandler(async (req, res) => {
         image: photo.path,
     });
     await product.save();
-    invalidateCache({ product: true });
+    invalidateCache({ product: true, admin: true });
     res.status(201).json({
         success: true,
         product,
@@ -64,7 +64,7 @@ export const updateProductDetails = asyncHandler(async (req, res) => {
     if (brand)
         product.brand = brand;
     await product.save();
-    invalidateCache({ product: true });
+    invalidateCache({ product: true, productId: String(product._id), admin: true });
     res.status(201).json({
         success: true,
         message: 'Product saved successfully',
@@ -81,7 +81,7 @@ export const removeProduct = asyncHandler(async (req, res) => {
         console.log('Old Photo Deleted');
     });
     await Product.findByIdAndDelete(id);
-    invalidateCache({ product: true });
+    invalidateCache({ product: true, productId: String(product._id), admin: true });
     res.status(201).json({
         success: true,
         message: 'Product deleted successfully',
